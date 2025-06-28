@@ -29,7 +29,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
     switch (message.type) {
       case 'audio':
         return (
-          <div className="flex items-center gap-2 p-1">
+          <div className="flex items-center gap-2.5">
             <Image
                 src="https://imperiumfragrance.shop/wp-content/uploads/2025/06/perfil.jpg"
                 data-ai-hint="woman profile"
@@ -66,7 +66,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
         "rounded-lg shadow",
         isUser ? "bg-whatsapp-user-message" : "bg-white",
         message.type === 'image' ? 'p-1' :
-        message.type === 'audio' ? 'p-0' :
+        message.type === 'audio' ? 'py-2.5 px-3' :
         'p-2',
         "max-w-[85%] md:max-w-[75%]"
       )}>
