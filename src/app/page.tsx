@@ -130,8 +130,8 @@ export default function Home() {
   const handleCheckPayment = async () => {
     if (!pixData?.transactionId || isCheckingPayment) return;
 
-    setIsCheckingPayment(true);
     addMessage({ type: 'text', text: "Já paguei" }, 'user');
+    setIsCheckingPayment(true);
     await showTypingIndicator(2000);
     playNotificationSound();
     await delay(500);
@@ -172,11 +172,10 @@ export default function Home() {
       setFlowStep('awaiting_pix_payment');
       playNotificationSound();
       await delay(500);
-      addMessage({ type: 'text', text: "Prontinho amor, faz o pagamento pra gente continuar..." }, 'bot');
+      addMessage({ type: 'text', text: "Prontinho amor, o valor é só R$10,00. Faz o pagamento pra gente continuar..." }, 'bot');
       playNotificationSound();
       await delay(500);
       addMessage({ type: 'pix', sender: 'bot', pixCopyPaste: charge.pixCopyPaste });
-
     } else {
       playNotificationSound();
       await delay(500);
@@ -191,8 +190,7 @@ export default function Home() {
     if (!userMessageText.trim()) return;
 
     addMessage({ type: 'text', text: userMessageText }, 'user');
-
-    setIsLoading(true);
+    setShowInput(false);
 
     switch (flowStep) {
       case 'awaiting_name':
@@ -274,12 +272,11 @@ export default function Home() {
         await playAudioSequence(17, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/17.mp3');
         setFlowStep('awaiting_final_button_click');
         setShowFinalButton(true);
-        setShowInput(false);
         break;
 
       case 'chat_mode':
         try {
-          await delay(1500);
+          await showTypingIndicator(1500);
           const { response } = await sendMessage(userMessageText);
           playNotificationSound();
           await delay(500);
@@ -292,7 +289,10 @@ export default function Home() {
         }
         break;
     }
-    setIsLoading(false);
+    
+    if (flowStep !== 'awaiting_final_button_click' && flowStep !== 'awaiting_pix_payment') {
+      setShowInput(true);
+    }
   };
 
   return (
@@ -311,14 +311,24 @@ export default function Home() {
           </div>
 
           {flowStep === 'awaiting_pix_payment' && (
-            <div className="p-4 bg-background border-t border-border/20 flex justify-center">
+            <div className="p-4 bg-background border-t border-border/20 flex flex-col items-center gap-4">
+              <div className="flex items-center text-sm text-muted-foreground">
+                <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                <span>Aguardando pagamento...</span>
+              </div>
               <Button
                   onClick={handleCheckPayment}
                   disabled={isCheckingPayment || !pixData}
                   className="w-full bg-primary text-primary-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-primary/90"
               >
-                  {isCheckingPayment && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}
-                  Já paguei
+                  {isCheckingPayment ? (
+                      <>
+                          <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                          Verificando...
+                      </>
+                  ) : (
+                      'Já paguei'
+                  )}
               </Button>
             </div>
           )}
