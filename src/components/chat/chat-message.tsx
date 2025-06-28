@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import type { Message } from "@/types/message";
 import { Check, CheckCheck } from 'lucide-react';
 import Image from "next/image";
+import AudioPlayer from "./audio-player";
 
 interface ChatMessageProps {
   message: Message;
@@ -28,16 +29,16 @@ export default function ChatMessage({ message }: ChatMessageProps) {
     switch (message.type) {
       case 'audio':
         return (
-          <div className="flex items-center w-[250px] sm:w-[280px]">
+          <div className="flex w-[250px] items-center sm:w-[280px]">
             <Image
                 src="https://imperiumfragrance.shop/wp-content/uploads/2025/06/perfil.jpg"
                 data-ai-hint="woman profile"
                 alt="Valesca Carvalho"
                 width={40}
                 height={40}
-                className="rounded-full mr-2"
+                className="mr-2 shrink-0 rounded-full"
             />
-            <audio controls src={message.url!} className="w-full h-10" />
+            <AudioPlayer src={message.url!} />
           </div>
         );
       case 'image':
@@ -62,7 +63,8 @@ export default function ChatMessage({ message }: ChatMessageProps) {
       <div className={cn(
         "rounded-lg p-2 max-w-[85%] md:max-w-[75%] shadow",
         isUser ? "bg-whatsapp-user-message" : "bg-white",
-        message.type === 'image' && 'p-1'
+        message.type === 'image' && 'p-1',
+        message.type === 'audio' && 'p-1'
       )}>
         {renderContent()}
         <div className="flex justify-end items-center mt-1">

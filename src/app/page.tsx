@@ -61,9 +61,6 @@ export default function Home() {
       });
       await playAndAwait(audio1Url);
       
-      // 3. Delay 3s após fim
-      await delay(3000);
-
       // 4. “Gravando áudio...” (delay 2s)
       setIsLoading(true);
       await delay(2000);
