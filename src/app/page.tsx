@@ -57,7 +57,7 @@ export default function Home() {
         if (!geoResponse.ok) throw new Error('Failed to fetch geo data');
         const geoData = await geoResponse.json();
         const city = geoData.city || 'do Brasil';
-        const encodedCity = encodeURIComponent(`de ${city}`);
+        const encodedCity = encodeURIComponent(city);
         const imageUrl = `https://res.cloudinary.com/dxqmzd84a/image/upload/co_rgb:000000,l_text:roboto_50_bold_normal_left:${encodedCity}/fl_layer_apply,x_50,y_425/Design_sem_nome_12_txxzjl`;
         
         addBotMessage({ type: 'image', url: imageUrl });
