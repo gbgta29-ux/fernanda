@@ -114,9 +114,9 @@ export default function AudioPlayer({ src }: AudioPlayerProps) {
               onValueChange={handleProgressChange}
               max={100}
               step={0.1}
-              className="[&>span:first-of-type]:h-1 [&_[role=slider]]:h-3.5 [&_[role=slider]]:w-3.5 [&_[role=slider]]:border-primary"
+              className="[&>span:first-of-type]:h-1 [&_[role=slider]]:h-3.5 [&_[role=slider]]:w-3.5 [&_[role=slider]]:border-2 [&_[role=slider]]:border-primary"
           />
-          <div className="-mt-1 flex justify-between text-xs text-gray-500">
+          <div className="flex justify-between text-xs text-gray-500">
               <span>{formatTime(currentTime)}</span>
               <span>{formatTime(duration)}</span>
           </div>
