@@ -172,7 +172,7 @@ export default function Home() {
       setFlowStep('awaiting_pix_payment');
       playNotificationSound();
       await delay(500);
-      addMessage({ type: 'text', text: "Prontinho amor, o valor é só R$10,00. Faz o pagamento pra gente continuar..." }, 'bot');
+      addMessage({ type: 'text', text: "Prontinho amor, o valor é só R$50,00. Faz o pagamento pra gente continuar..." }, 'bot');
       playNotificationSound();
       await delay(500);
       addMessage({ type: 'pix', sender: 'bot', pixCopyPaste: charge.pixCopyPaste });
