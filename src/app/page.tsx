@@ -245,14 +245,14 @@ export default function Home() {
         await showLoadingIndicator(1000, "Gravando áudio...");
         await playAudioSequence(18, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/18.mp3');
         
-        addMessage({ type: 'text', text: "Perfeito! Já vou gerar o PIX pra você... 😉" }, 'bot');
+        addMessage({ type: 'text', text: "vou mandar meu pix pra você bb... 😍" }, 'bot');
         await showLoadingIndicator(3000);
         
         const charge = await createPixCharge();
         if (charge && charge.pixCopyPaste) {
           setPixData(charge);
           setFlowStep('awaiting_pix_payment');
-          addMessage({ type: 'text', text: "Prontinho amor, o valor é só R$10,00. Faz o pagamento pra gente continuar..." }, 'bot');
+          addMessage({ type: 'text', text: "Prontinho amor, o valor é só R$10,00. Faz o pagamento pra gente gozar na chamada de vídeo..." }, 'bot');
           addMessage({ type: 'pix', sender: 'bot', pixCopyPaste: charge.pixCopyPaste });
         } else {
           addMessage({ type: 'text', text: "Ops, não consegui gerar o PIX agora, amor. Tenta de novo em um minutinho." }, 'bot');
