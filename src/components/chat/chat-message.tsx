@@ -1,9 +1,11 @@
 
 import { cn } from "@/lib/utils";
 import type { Message } from "@/types/message";
-import { Check, CheckCheck } from 'lucide-react';
+import { Check, CheckCheck, Copy } from 'lucide-react';
 import Image from "next/image";
 import AudioPlayer from "./audio-player";
+import { Button } from "../ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 interface ChatMessageProps {
   message: Message;
@@ -25,6 +27,15 @@ const MessageStatus = ({ status }: { status: Message['status'] }) => {
 
 export default function ChatMessage({ message, isAutoPlaying = false }: ChatMessageProps) {
   const isUser = message.sender === 'user';
+  const { toast } = useToast();
+
+  const handleCopyCode = (code: string) => {
+    navigator.clipboard.writeText(code);
+    toast({
+      title: "Código PIX copiado!",
+      description: "Agora é só colar no seu aplicativo do banco.",
+    });
+  };
 
   const TimeAndStatus = () => (
     <div className="flex justify-end items-center">
@@ -42,6 +53,24 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
 
   const renderContent = () => {
     switch (message.type) {
+      case 'pix':
+        if (!message.pixCopyPaste) return null;
+        return (
+          <div className="flex flex-col gap-3">
+            <div>
+              <p className="font-semibold text-sm">PIX Copia e Cola</p>
+              <p className="text-xs text-muted-foreground">Clique no botão para copiar o código.</p>
+            </div>
+            <div className="w-full space-y-2">
+                <p className="bg-muted w-full text-xs text-left font-mono p-2 rounded-md break-all">{message.pixCopyPaste}</p>
+                <Button onClick={() => handleCopyCode(message.pixCopyPaste!)} variant="outline" className="w-full">
+                    <Copy className="mr-2 h-4 w-4" />
+                    Copiar código
+                </Button>
+            </div>
+            <div className="mt-1 -mb-1"><TimeAndStatus /></div>
+          </div>
+        );
       case 'audio':
         return (
           <>

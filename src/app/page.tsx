@@ -8,9 +8,7 @@ import ChatMessages from "@/components/chat/chat-messages";
 import ChatInput from "@/components/chat/chat-input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useToast } from "@/hooks/use-toast";
-import { Copy, RefreshCw } from 'lucide-react';
-import { Input } from "@/components/ui/input";
+import { RefreshCw } from 'lucide-react';
 
 type FlowStep = 
   | 'initial'
@@ -40,7 +38,6 @@ export default function Home() {
   const [isCheckingPayment, setIsCheckingPayment] = useState(false);
   const [pixData, setPixData] = useState<PixChargeData | null>(null);
   const notificationSoundRef = useRef<HTMLAudioElement>(null);
-  const { toast } = useToast();
 
   const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
   
@@ -130,16 +127,6 @@ export default function Home() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleCopyCode = () => {
-    if (pixData?.pixCopyPaste) {
-      navigator.clipboard.writeText(pixData.pixCopyPaste);
-      toast({
-        title: "Código PIX copiado!",
-        description: "Agora é só colar no seu aplicativo do banco.",
-      });
-    }
-  };
-
   const handleCheckPayment = async () => {
     if (!pixData?.transactionId || isCheckingPayment) return;
 
@@ -186,6 +173,10 @@ export default function Home() {
       playNotificationSound();
       await delay(500);
       addMessage({ type: 'text', text: "Prontinho amor, faz o pagamento pra gente continuar..." }, 'bot');
+      playNotificationSound();
+      await delay(500);
+      addMessage({ type: 'pix', sender: 'bot', pixCopyPaste: charge.pixCopyPaste });
+
     } else {
       playNotificationSound();
       await delay(500);
@@ -319,37 +310,11 @@ export default function Home() {
             <ChatMessages messages={messages} isLoading={isLoading} autoPlayingAudioId={autoPlayingAudioId} />
           </div>
 
-          {flowStep === 'awaiting_pix_payment' && pixData && (
-            <div className="p-4 bg-background border-t border-border/20 flex flex-col items-center gap-4">
-              {pixData.qrCode ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img 
-                      src={`data:image/png;base64,${pixData.qrCode}`} 
-                      alt="PIX QR Code" 
-                      width={200} 
-                      height={200}
-                      className="rounded-lg border bg-white"
-                  />
-              ) : (
-                  <div className="w-[200px] h-[200px] bg-muted rounded-lg flex items-center justify-center p-4">
-                      <p className="text-muted-foreground text-sm text-center">QR Code indisponível.</p>
-                  </div>
-              )}
-              <div className="w-full space-y-2">
-                  <Input
-                      readOnly
-                      value={pixData.pixCopyPaste}
-                      className="bg-muted w-full text-sm truncate text-center font-mono"
-                      aria-label="Código PIX Copia e Cola"
-                  />
-                  <Button onClick={handleCopyCode} variant="outline" className="w-full">
-                      <Copy className="mr-2 h-4 w-4" />
-                      Copiar código
-                  </Button>
-              </div>
+          {flowStep === 'awaiting_pix_payment' && (
+            <div className="p-4 bg-background border-t border-border/20 flex justify-center">
               <Button
                   onClick={handleCheckPayment}
-                  disabled={isCheckingPayment}
+                  disabled={isCheckingPayment || !pixData}
                   className="w-full bg-primary text-primary-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-primary/90"
               >
                   {isCheckingPayment && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}

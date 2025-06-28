@@ -13,7 +13,6 @@ export async function sendMessage(message: string): Promise<GenerateResponseOutp
 }
 
 export interface PixChargeData {
-  qrCode: string;
   pixCopyPaste: string;
   transactionId: string;
 }
@@ -49,7 +48,6 @@ export async function createPixCharge(): Promise<PixChargeData | null> {
     // The user's prompt states `qr_code` is the copy-paste string.
     // The previous implementation used `br_code`. Using a fallback for safety.
     return {
-      qrCode: data.qr_code_base64,
       pixCopyPaste: data.qr_code || data.br_code,
       transactionId: data.id,
     };
