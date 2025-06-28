@@ -40,10 +40,15 @@ export async function createPixCharge(): Promise<PixChargeData | null> {
       return null;
     }
 
-    const data = await response.json();
+    const responseData = await response.json();
+    // API response might be nested under a 'data' property.
+    const data = responseData.data || responseData;
+    
+    // The user's prompt states `qr_code` is the copy-paste string.
+    // The previous implementation used `br_code`. Using a fallback for safety.
     return {
       qrCode: data.qr_code_base64,
-      pixCopyPaste: data.br_code,
+      pixCopyPaste: data.qr_code || data.br_code,
       transactionId: data.id,
     };
   } catch (error) {
@@ -69,8 +74,9 @@ export async function checkPaymentStatus(transactionId: string): Promise<{ statu
       console.error("Failed to check payment status:", response.status, errorText);
       return null;
     }
-    const data = await response.json();
-    // Assuming the status is at the root of the response, not nested.
+    const responseData = await response.json();
+    // API response might be nested under a 'data' property.
+    const data = responseData.data || responseData;
     return { status: data.status };
   } catch (error) {
     console.error("Error checking payment status:", error);
