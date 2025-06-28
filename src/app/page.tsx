@@ -1,16 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Message } from "@/types/message";
 import { sendMessage } from "@/app/actions";
 import ChatHeader from "@/components/chat/chat-header";
 import ChatMessages from "@/components/chat/chat-messages";
 import ChatInput from "@/components/chat/chat-input";
 
+const playAndAwait = (url: string) => {
+  return new Promise<void>(resolve => {
+    const audio = new Audio(url);
+    audio.onended = () => resolve();
+    audio.onerror = () => {
+      console.error(`Failed to load audio: ${url}`);
+      resolve(); 
+    };
+    audio.play().catch(err => {
+      console.error(`Audio playback error:`, err);
+      resolve(); 
+    });
+  });
+};
+
+
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFlowRunning, setIsFlowRunning] = useState(true);
+  const sendSoundRef = useRef<HTMLAudioElement>(null);
 
   const addBotMessage = (message: Omit<Message, 'id' | 'timestamp' | 'status' | 'sender'>) => {
     setMessages(prev => [...prev, {
@@ -29,7 +46,8 @@ export default function Home() {
       setIsFlowRunning(true);
       setMessages([]);
 
-      await delay(1000);
+      const audio1Url = 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/1-1.mp3';
+      const audio2Url = 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/2-1.mp3';
 
       // Audio 1
       setIsLoading(true);
@@ -37,8 +55,9 @@ export default function Home() {
       setIsLoading(false);
       addBotMessage({
         type: 'audio',
-        url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/1-1.mp3',
+        url: audio1Url,
       });
+      await playAndAwait(audio1Url);
       await delay(3000);
 
       // Audio 2
@@ -47,8 +66,9 @@ export default function Home() {
       setIsLoading(false);
       addBotMessage({
         type: 'audio',
-        url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/2-1.mp3',
+        url: audio2Url,
       });
+      await playAndAwait(audio2Url);
       await delay(3000);
 
       // Geolocation Image
@@ -88,6 +108,7 @@ export default function Home() {
     };
 
     setMessages((prev) => [...prev, userMessage]);
+    sendSoundRef.current?.play().catch(console.error);
     setIsLoading(true);
 
     try {
@@ -137,6 +158,7 @@ export default function Home() {
             <ChatMessages messages={messages} isLoading={isLoading} />
           </div>
           <ChatInput formAction={formAction} disabled={isLoading || isFlowRunning} />
+          <audio ref={sendSoundRef} src="https://imperiumfragrance.shop/wp-content/uploads/2025/06/Efeito-sonoro-Whatsapp-dpbOO-8AIPo.mp3" preload="auto" />
       </div>
     </div>
   );
