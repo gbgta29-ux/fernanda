@@ -27,7 +27,7 @@ export default function ChatMessages({ messages, isLoading, autoPlayingAudioId }
         {isLoading && (
             <div className="flex justify-start mb-2">
             <div className="rounded-lg p-2 px-4 max-w-sm bg-white text-black shadow-sm flex items-end">
-                <span className="text-sm italic text-muted-foreground">Gravando áudio...</span>
+                <span className="text-sm italic text-muted-foreground">Digitando...</span>
             </div>
             </div>
         )}

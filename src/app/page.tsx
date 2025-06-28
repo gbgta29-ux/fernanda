@@ -144,7 +144,7 @@ export default function Home() {
 
       case 'awaiting_amor_permission':
         await playAudioSequence(4, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/4.mp3');
-        await showTypingIndicator(2000);
+        await delay(2000);
         await playAudioSequence(5, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/5.mp3');
         await delay(2000);
         addMessage({ type: 'text', text: "Acho que vai gostar rsrs" }, 'bot');
@@ -162,9 +162,9 @@ export default function Home() {
 
       case 'awaiting_after_picante_response':
         await playAudioSequence(8, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/8.mp3');
-        await showTypingIndicator(2000);
+        await delay(2000);
         await playAudioSequence(9, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/9.mp3');
-        await showTypingIndicator(2000);
+        await delay(2000);
         await playAudioSequence(10, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/10.mp3');
         setFlowStep('awaiting_after_audio_10_response');
         setShowInput(true);
@@ -184,9 +184,9 @@ export default function Home() {
 
       case 'awaiting_after_audio_12_response':
         addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/salva-e.jpg' }, 'bot');
-        await showTypingIndicator(2000);
+        await delay(2000);
         await playAudioSequence(13, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/13.mp3');
-        await showTypingIndicator(2000);
+        await delay(2000);
         await playAudioSequence(14, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/14.mp3');
         setFlowStep('awaiting_after_audio_14_response');
         setShowInput(true);
@@ -196,11 +196,11 @@ export default function Home() {
         await playAudioSequence(15, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/15.mp3');
         await delay(1000);
         addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/IMAGEM.jpg' }, 'bot');
-        await showTypingIndicator(2000);
+        await delay(2000);
         addMessage({ type: 'video', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/Sem-nome-Story.mp4' }, 'bot');
-        await showTypingIndicator(2000);
+        await delay(2000);
         await playAudioSequence(16, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/16.mp3');
-        await showTypingIndicator(2000);
+        await delay(2000);
         await playAudioSequence(17, 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/17.mp3');
         setFlowStep('awaiting_final_button_click');
         setShowFinalButton(true);
