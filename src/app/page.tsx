@@ -33,7 +33,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState("Digitando...");
   const [autoPlayingAudioId, setAutoPlayingAudioId] = useState<number | null>(null);
-  const [showInput, setShowInput] = useState(true);
+  const [showInput, setShowInput] = useState(false);
   const [flowStep, setFlowStep] = useState<FlowStep>('initial');
   const [userName, setUserName] = useState('');
   const [city, setCity] = useState('do Brasil');
