@@ -12,6 +12,7 @@ import Link from "next/link";
 import { RefreshCw } from 'lucide-react';
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
+import { track as fpixelTrack } from '@/lib/fpixel';
 
 type FlowStep = 
   | 'initial'
@@ -164,6 +165,7 @@ export default function Home() {
     const result = await checkPaymentStatus(pixData.transactionId);
 
     if (result?.status === 'paid') {
+      fpixelTrack('Purchase', { value: 10.00, currency: 'BRL' });
       addMessage({ type: 'text', text: "Pagamento confirmado amor. Clica abaixo e vamos gozar na chamada de vídeo." }, 'bot');
       setFlowStep('payment_confirmed');
     } else {
@@ -273,6 +275,7 @@ export default function Home() {
         
         const charge = await createPixCharge();
         if (charge && charge.pixCopyPaste) {
+          fpixelTrack('InitiateCheckout', { value: 10.00, currency: 'BRL' });
           setPixData(charge);
           setFlowStep('awaiting_pix_payment');
           addMessage({ type: 'text', text: "Prontinho amor, o valor é só R$10,00. Faz o pagamento pra gente gozar na chamada de vídeo..." }, 'bot');
