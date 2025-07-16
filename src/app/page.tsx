@@ -107,9 +107,23 @@ export default function Home() {
       setIsLoading(false);
   };
 
+  const getCity = async () => {
+    try {
+      const response = await fetch('https://get.geojs.io/v1/ip/city.json');
+      if (!response.ok) {
+        return 'do Brasil';
+      }
+      const data = await response.json();
+      return data.city || 'do Brasil';
+    } catch (error) {
+      console.error("Error fetching city:", error);
+      return 'do Brasil';
+    }
+  };
+
   useEffect(() => {
     const runWelcomeFlow = async () => {
-      let currentCity = 'do Brasil';
+      const currentCity = await getCity();
       setCity(currentCity);
       
       await showLoadingIndicator(2000, "Gravando áudio...");
