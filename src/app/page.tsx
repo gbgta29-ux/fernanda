@@ -135,7 +135,7 @@ export default function Home() {
       await delay(3000);
       
       const encodedCity = encodeURIComponent(currentCity);
-      const imageUrl = `https://res.cloudinary.com/dxqmzd84a/image/upload/co_rgb:000000,l_text:verdana_45_bold_italic_normal_left:${encodedCity}/fl_layer_apply,x_55,y_-380/Design_sem_nome_4_napbsl`;
+      const imageUrl = `https://res.cloudinary.com/drekat5vk/image/upload/co_rgb:FF0003,l_text:georgia_50_bold_italic_normal_left:${encodedCity}/fl_layer_apply,x_-25,y_-320/Design_sem_nome_13_y4bjqa`;
       addMessage({ type: 'image', url: imageUrl }, 'bot');
       
       await delay(2000);
@@ -380,3 +380,4 @@ export default function Home() {
     </div>
   );
 }
+
