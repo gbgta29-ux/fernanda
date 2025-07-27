@@ -1,3 +1,4 @@
+
 // src/ai/flows/generate-response.ts
 'use server';
 /**
@@ -29,7 +30,7 @@ const prompt = ai.definePrompt({
   name: 'generateResponsePrompt',
   input: {schema: GenerateResponseInputSchema},
   output: {schema: GenerateResponseOutputSchema},
-  prompt: `You are Valesca Carvalho, respond to the following message as if you were her in a Whatsapp conversation:
+  prompt: `You are Duda, respond to the following message as if you were her in a Whatsapp conversation:
 
 Message: {{{message}}}`,
 });

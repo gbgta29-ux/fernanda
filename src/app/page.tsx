@@ -181,14 +181,14 @@ export default function Home() {
 
     if (result?.status === 'paid') {
       if (type === 'initial') {
-        fpixelTrack('Purchase', { value: 10.00, currency: 'BRL' });
+        fpixelTrack('Purchase', { value: 0.50, currency: 'BRL' });
         addMessage({ type: 'text', text: "Pagamento confirmado amor!" }, 'bot');
         await showLoadingIndicator(2000, "Gravando áudio...");
         await playAudioSequence(20, 'https://imperiumfragrance.shop/wp-content/uploads/2025/07/ElevenLabs_2025-07-25T23_51_20_Keren-Young-Brazilian-Female_pvc_sp110_s30_sb30_v3.mp3');
         addMessage({ type: 'text', text: "Você vai querer meu número pessoal, amor? Custa só mais R$15,00." }, 'bot');
         setFlowStep('payment_confirmed_awaiting_upsell_choice');
       } else { // upsell
-        fpixelTrack('Purchase', { value: 25.00, currency: 'BRL' }); // R$10 + R$15
+        fpixelTrack('Purchase', { value: 1.00, currency: 'BRL' }); // R$0.50 + R$0.50
         addMessage({ type: 'text', text: "Confirmado, bebê! Agora sim, podemos conversar no privado. Clica no botão abaixo para me chamar no WhatsApp e também para nossa chamada de vídeo. 😘" }, 'bot');
         setFlowStep('upsell_payment_confirmed');
       }
@@ -206,10 +206,10 @@ export default function Home() {
         await showLoadingIndicator(2000);
         addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$15,00 pra você.' }, 'bot');
         await showLoadingIndicator(3000);
-        const charge = await createPixCharge(1500);
+        const charge = await createPixCharge(50);
         if (charge && charge.pixCopyPaste) {
             setUpsellPixData(charge);
-            addMessage({ type: 'pix', sender: 'bot', pixCopyPaste: charge.pixCopyPaste, value: 15 });
+            addMessage({ type: 'pix', sender: 'bot', pixCopyPaste: charge.pixCopyPaste, value: 0.50 });
             setFlowStep('awaiting_upsell_pix_payment');
         } else {
             addMessage({ type: 'text', text: "Ops, não consegui gerar o PIX agora, amor. Tenta de novo em um minutinho." }, 'bot');
@@ -324,13 +324,13 @@ export default function Home() {
         addMessage({ type: 'text', text: "vou mandar meu pix pra você bb... 😍" }, 'bot');
         await showLoadingIndicator(3000);
         
-        const charge = await createPixCharge(1000);
+        const charge = await createPixCharge(50);
         if (charge && charge.pixCopyPaste) {
-          fpixelTrack('InitiateCheckout', { value: 10.00, currency: 'BRL' });
+          fpixelTrack('InitiateCheckout', { value: 0.50, currency: 'BRL' });
           setPixData(charge);
           setFlowStep('awaiting_pix_payment');
-          addMessage({ type: 'text', text: "Prontinho amor, o valor é só R$10,00. Faz o pagamento pra gente gozar na chamada de vídeo..." }, 'bot');
-          addMessage({ type: 'pix', sender: 'bot', pixCopyPaste: charge.pixCopyPaste, value: 10 });
+          addMessage({ type: 'text', text: "Prontinho amor, o valor é só R$0,50. Faz o pagamento pra gente gozar na chamada de vídeo..." }, 'bot');
+          addMessage({ type: 'pix', sender: 'bot', pixCopyPaste: charge.pixCopyPaste, value: 0.50 });
         } else {
           addMessage({ type: 'text', text: "Ops, não consegui gerar o PIX agora, amor. Tenta de novo em um minutinho." }, 'bot');
           setShowInput(true); 
@@ -358,13 +358,13 @@ export default function Home() {
           {!isStarted && (
             <div className="absolute inset-0 bg-black/70 z-20 flex flex-col items-center justify-center gap-4 text-center p-4">
                <Image
-                src="https://imperiumfragrance.shop/wp-content/uploads/2025/06/perfil.jpg"
-                alt="Valesca Carvalho"
+                src="https://imperiumfragrance.shop/wp-content/uploads/2025/07/foto-de-perfil.jpg"
+                alt="Duda"
                 width={80}
                 height={80}
                 className="rounded-full border-4 border-white"
               />
-              <h1 className="text-white text-2xl font-bold">Valesca Carvalho</h1>
+              <h1 className="text-white text-2xl font-bold">Duda</h1>
               <p className="text-white/80">Enviou uma nova mensagem de áudio</p>
               <Button onClick={() => setIsStarted(true)} size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground mt-4">
                 <Play className="mr-2" />

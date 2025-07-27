@@ -82,9 +82,9 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
           <>
             <div className="flex items-center gap-2.5">
               <Image
-                  src="https://imperiumfragrance.shop/wp-content/uploads/2025/06/perfil.jpg"
+                  src="https://imperiumfragrance.shop/wp-content/uploads/2025/07/foto-de-perfil.jpg"
                   data-ai-hint="woman profile"
-                  alt="Valesca Carvalho"
+                  alt="Duda"
                   width={40}
                   height={40}
                   className="shrink-0 rounded-full"
