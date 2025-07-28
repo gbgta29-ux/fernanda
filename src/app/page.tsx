@@ -111,12 +111,16 @@ export default function Home() {
 
   const getCity = async () => {
     try {
-      const response = await fetch('https://ipapi.co/json/');
+      const response = await fetch('https://get.geojs.io/v1/ip/city.json');
       if (!response.ok) {
-        return 'do Brasil';
+        const fallbackResponse = await fetch('https://ipapi.co/json/');
+         if(!fallbackResponse.ok) return 'do Brasil';
+        const fallbackData = await fallbackResponse.json();
+        return fallbackData.city || 'do Brasil'
       }
       const data = await response.json();
-      return data.city || 'do Brasil';
+      const city = data.city ? decodeURIComponent(escape(data.city)) : 'do Brasil';
+      return city;
     } catch (error) {
       console.error("Error fetching city:", error);
       return 'do Brasil';
@@ -148,6 +152,9 @@ export default function Home() {
 
       await delay(2000);
       addMessage({ type: 'text', text: `E estou morando em ${currentCity}` }, 'bot');
+      
+      await showLoadingIndicator(2000, "Gravando áudio...");
+      await playAudioSequence(4, 'https://imperiumfragrance.shop/wp-content/uploads/2025/07/4.mp3');
       
       await delay(2000);
       addMessage({ type: 'text', text: "Qual seu nome, bb? 💗" }, 'bot');
@@ -458,6 +465,8 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
 
