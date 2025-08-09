@@ -414,7 +414,7 @@ export default function Home() {
           {flowStep === 'upsell_payment_confirmed' && (
              <div className="p-4 bg-background border-t border-border/20 flex justify-center">
               <Button asChild className="w-full bg-accent text-accent-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-accent/90">
-                <Link href="https://w.app/fumidp" target="_blank">
+                <Link href="https://wa.me/554399540418?text=Oi%20dudaa%2C%20tudo%20bem%20%3F%20comprei%20sua%20chamadinha%20de%20v%C3%ADdeo.%20quando%20voc%C3%AA%20est%C3%A1%20disponivel%20%3F" target="_blank">
                   Conversar no WhatsApp
                 </Link>
               </Button>
@@ -437,6 +437,8 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
 
