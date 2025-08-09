@@ -352,7 +352,7 @@ export default function Home() {
                 className="rounded-full border-4 border-white object-cover aspect-square"
               />
               <h1 className="text-white text-2xl font-bold">Duda</h1>
-              <p className="text-white/80">Enviou uma nova mensagem de áudio</p>
+              <p className="text-white/80">Mandou uma nova mensagem de audio</p>
               <Button onClick={() => setIsStarted(true)} size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground mt-4">
                 <Play className="mr-2" />
                 Ouvir agora
@@ -437,6 +437,8 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
 
