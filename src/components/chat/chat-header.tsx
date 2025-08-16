@@ -9,15 +9,15 @@ export default function ChatHeader() {
         <ArrowLeft className="h-6 w-6" />
       </button>
       <Image
-        src="https://imperiumfragrance.shop/wp-content/uploads/2025/07/foto-de-perfil.jpg"
+        src="https://imperiumfragrance.shop/wp-content/uploads/2025/08/modelo.jpg"
         data-ai-hint="woman profile"
-        alt="Duda"
+        alt="Milla"
         width={40}
         height={40}
         className="rounded-full object-cover aspect-square"
       />
       <div className="ml-3 flex-1">
-        <h1 className="font-semibold text-base leading-tight">Duda</h1>
+        <h1 className="font-semibold text-base leading-tight">Milla</h1>
         <p className="text-xs opacity-90 leading-tight">online</p>
       </div>
       <div className="flex items-center space-x-1">

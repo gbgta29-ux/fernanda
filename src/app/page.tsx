@@ -345,13 +345,13 @@ export default function Home() {
           {!isStarted && (
             <div className="absolute inset-0 bg-black/70 z-20 flex flex-col items-center justify-center gap-4 text-center p-4">
                <Image
-                src="https://imperiumfragrance.shop/wp-content/uploads/2025/07/foto-de-perfil.jpg"
-                alt="Duda"
+                src="https://imperiumfragrance.shop/wp-content/uploads/2025/08/modelo.jpg"
+                alt="Milla"
                 width={80}
                 height={80}
                 className="rounded-full border-4 border-white object-cover aspect-square"
               />
-              <h1 className="text-white text-2xl font-bold">Duda</h1>
+              <h1 className="text-white text-2xl font-bold">Milla</h1>
               <p className="text-white/80">Mandou uma nova mensagem de audio</p>
               <Button onClick={() => setIsStarted(true)} size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground mt-4">
                 <Play className="mr-2" />
