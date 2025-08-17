@@ -132,7 +132,7 @@ export default function Home() {
       setCity(currentCity);
       
       await showLoadingIndicator(2000, "Gravando áudio...");
-      await playAudioSequence(1, 'https://imperiumfragrance.shop/wp-content/uploads/2025/07/1.mp3');
+      await playAudioSequence(1, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/ElevenLabs_2025-08-17T14_35_03_Keren-Young-Brazilian-Female_pvc_sp110_s30_sb30_v3.mp3');
       
       await showLoadingIndicator(2000, "Gravando áudio...");
       await playAudioSequence(2, 'https://imperiumfragrance.shop/wp-content/uploads/2025/07/2.mp3');
@@ -437,6 +437,8 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
 
