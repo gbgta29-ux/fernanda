@@ -140,7 +140,7 @@ export default function Home() {
       await delay(3000);
       
       const encodedCity = encodeURIComponent(currentCity);
-      const imageUrl = `https://res.cloudinary.com/ds1o8q8uy/image/upload/co_rgb:FF0000,l_text:roboto_46_bold_italic_normal_left:${encodedCity}/fl_layer_apply,x_-150,y_-550/Design_sem_nome_24_mkysip`;
+      const imageUrl = `https://res.cloudinary.com/doao0wxwe/image/upload/co_rgb:000000,l_text:courier new_30_bold_italic_normal_left:${encodedCity}/fl_layer_apply,x_180,y_-250/Design_sem_nome_38_vaeexh`;
       addMessage({ type: 'image', url: imageUrl }, 'bot');
       
       await delay(2000);
