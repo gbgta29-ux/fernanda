@@ -366,7 +366,7 @@ export default function Home() {
           <div 
             className="flex-1 overflow-y-auto"
             style={{
-              backgroundImage: "url('https://i.pinimg.com/originals/34/8f/c9/348fc9806e32bba0fb4c42e799ddf880.jpg')",
+              backgroundImage: "url('https://th.bing.com/th/id/R.8a79b1b37348b5309f454d58c1b5c10e?rik=oLWN2jxqvlILGw&pid=ImgRaw&r=0')",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}
@@ -440,13 +440,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
-
-    
-
-    
-
-    

@@ -34,6 +34,12 @@ const nextConfig: NextConfig = {
         hostname: 'res.cloudinary.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'th.bing.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
