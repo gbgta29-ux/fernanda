@@ -142,6 +142,9 @@ export default function Home() {
       const encodedCity = encodeURIComponent(currentCity);
       const imageUrl = `https://res.cloudinary.com/doao0wxwe/image/upload/co_rgb:000000,l_text:courier new_30_bold_italic_normal_left:${encodedCity}/fl_layer_apply,x_180,y_-250/Design_sem_nome_38_vaeexh`;
       addMessage({ type: 'image', url: imageUrl }, 'bot');
+
+      await delay(1500);
+      addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/1-o1.jpg' }, 'bot');
       
       await delay(2000);
       addMessage({ type: 'text', text: "Essa foto eu tirei hoje mais cedo ❤🔥" }, 'bot');
