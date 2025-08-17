@@ -309,7 +309,7 @@ export default function Home() {
       case 'awaiting_after_audio_12_response':
         await delay(3000);
         await showLoadingIndicator(3000);
-        addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/Design-sem-nome-39.jpg' }, 'bot');
+        addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/foto-essa.jpg' }, 'bot');
         await showLoadingIndicator(2000);
         addMessage({ type: 'video', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/cud.mp4' }, 'bot');
         await showLoadingIndicator(3000, "Gravando áudio...");
@@ -440,5 +440,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
