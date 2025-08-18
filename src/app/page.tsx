@@ -427,7 +427,7 @@ export default function Home() {
           {flowStep === 'flow_complete_video_only' && (
              <div className="p-4 bg-background border-t border-border/20 flex justify-center">
               <Button asChild className="w-full bg-accent text-accent-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-accent/90">
-                <Link href="https://marvelous-parfait-3475a8.netlify.app/" target="_blank">
+                <Link href="https://video-call-simulator-kjv3.bolt.host/" target="_blank">
                   Iniciar chamada de vídeo
                 </Link>
               </Button>
