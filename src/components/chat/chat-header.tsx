@@ -1,23 +1,22 @@
-
 import Image from 'next/image';
 import { ArrowLeft, Video, Phone, MoreVertical } from 'lucide-react';
 
 export default function ChatHeader() {
   return (
-    <header className="flex items-center p-2.5 bg-white text-gray-800 shadow-sm z-10 shrink-0">
+    <header className="flex items-center p-2.5 bg-white text-black shadow-sm z-10 shrink-0">
       <button aria-label="Voltar" className="p-2 -ml-2">
         <ArrowLeft className="h-6 w-6" />
       </button>
       <Image
-        src="https://imperiumfragrance.shop/wp-content/uploads/2025/08/modelo.jpg"
+        src="https://content.api.news/v3/images/bin/55d056d95292fb33b583e37fdbbc2ddf"
         data-ai-hint="woman profile"
-        alt="Milla"
+        alt="Fernanda Lopes"
         width={40}
         height={40}
         className="rounded-full object-cover aspect-square"
       />
       <div className="ml-3 flex-1">
-        <h1 className="font-semibold text-base leading-tight">Milla</h1>
+        <h1 className="font-semibold text-base leading-tight">Fernanda Lopes</h1>
         <p className="text-xs text-gray-600 leading-tight">online</p>
       </div>
       <div className="flex items-center space-x-1">

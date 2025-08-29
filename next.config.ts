@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
         hostname: 'th.bing.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'content.api.news',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
