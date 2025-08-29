@@ -315,7 +315,6 @@ export default function Home() {
         await playAudioSequence(14, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-14.mp3', 500);
         await playAudioSequence(15, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-15.mp3', 500);
         addMessage({ type: 'text', text: "você vai querer ? bb uma chamadinha de video bem deliciosa comigo ??" }, 'bot');
-        await playAudioSequence(15, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-15.mp3', 500); // Re-using audio 15 as per instructions
         addMessage({ type: 'text', text: "posso te mandar meu pix amorzinho" }, 'bot');
         setShowInput(true);
         setFlowStep('awaiting_pix_permission');
