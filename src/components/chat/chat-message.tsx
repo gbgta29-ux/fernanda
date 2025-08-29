@@ -6,6 +6,7 @@ import Image from "next/image";
 import AudioPlayer from "./audio-player";
 import { Button } from "../ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { useEffect, useRef } from "react";
 
 interface ChatMessageProps {
   message: Message;
@@ -28,6 +29,24 @@ const MessageStatus = ({ status }: { status: Message['status'] }) => {
 export default function ChatMessage({ message, isAutoPlaying = false }: ChatMessageProps) {
   const isUser = message.sender === 'user';
   const { toast } = useToast();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const handleVideoPlay = () => {
+      document.querySelectorAll('audio').forEach(audio => audio.pause());
+    };
+
+    const video = videoRef.current;
+    if (video) {
+      video.addEventListener('play', handleVideoPlay);
+    }
+
+    return () => {
+      if (video) {
+        video.removeEventListener('play', handleVideoPlay);
+      }
+    };
+  }, []);
 
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
@@ -114,6 +133,7 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
         return (
           <div className="relative">
             <video
+              ref={videoRef}
               src={message.url!}
               controls
               className="rounded-md object-cover w-full max-w-[300px]"
