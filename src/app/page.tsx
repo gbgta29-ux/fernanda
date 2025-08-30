@@ -344,18 +344,22 @@ export default function Home() {
     <div className="bg-[#111B21] flex items-center justify-center h-screen font-body select-none">
       <div className="w-full h-dvh sm:w-[450px] sm:h-[95vh] sm:max-h-[900px] flex flex-col bg-background shadow-2xl relative overflow-hidden">
           {!isStarted && (
-            <div className="absolute inset-0 bg-black/70 z-20 flex flex-col items-center justify-center gap-4 text-center p-4">
-               <Image
-                src="https://content.api.news/v3/images/bin/55d056d95292fb33b583e37fdbbc2ddf"
-                alt="Fernanda Lopes"
-                width={80}
-                height={80}
-                className="rounded-full border-4 border-white object-cover aspect-square"
-              />
-              <h1 className="text-white text-2xl font-bold">Fernanda Lopes</h1>
-              <p className="text-white/80">Mandou uma nova mensagem de audio</p>
-              <Button onClick={() => setIsStarted(true)} size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground mt-4">
-                <Play className="mr-2" />
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-black z-20 flex flex-col items-center justify-center gap-6 text-center p-4 animate-fadeIn">
+              <div className="relative">
+                <Image
+                    src="https://content.api.news/v3/images/bin/55d056d95292fb33b583e37fdbbc2ddf"
+                    alt="Fernanda Lopes"
+                    width={120}
+                    height={120}
+                    className="rounded-full border-4 border-white object-cover aspect-square shadow-2xl animate-pulseGlow"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <h1 className="text-white text-3xl font-bold tracking-tight">Fernanda Lopes</h1>
+                <p className="text-white/80 text-lg">enviou uma nova mensagem de áudio</p>
+              </div>
+              <Button onClick={() => setIsStarted(true)} size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground mt-6 rounded-full py-7 px-10 text-lg font-bold shadow-lg animate-pulseButton">
+                <Play className="mr-3 h-6 w-6" />
                 Ouvir agora
               </Button>
             </div>
