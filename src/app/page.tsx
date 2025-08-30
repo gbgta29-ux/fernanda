@@ -127,7 +127,7 @@ export default function Home() {
 
   useEffect(() => {
     const runWelcomeFlow = async () => {
-      await showLoadingIndicator(5000, "Gravando áudio...");
+      await showLoadingIndicator(2000, "Gravando áudio...");
       await playAudioSequence(1, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-1.mp3', 3000);
       await playAudioSequence(2, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-2.mp3', 3000);
 
@@ -341,7 +341,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[#111B21] flex items-center justify-center h-screen font-body select-none">
+    <div className="bg-gradient-to-b from-red-900 via-red-800 to-black flex items-center justify-center h-screen font-body select-none">
       <div className="w-full h-dvh sm:w-[450px] sm:h-[95vh] sm:max-h-[900px] flex flex-col bg-background shadow-2xl relative overflow-hidden">
           {!isStarted && (
             <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-black z-20 flex flex-col items-center justify-center gap-6 text-center p-4 animate-fadeIn">
@@ -442,3 +442,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
