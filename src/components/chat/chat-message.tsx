@@ -32,21 +32,16 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const handleVideoPlay = () => {
-      document.querySelectorAll('audio').forEach(audio => audio.pause());
-    };
-
     const video = videoRef.current;
     if (video) {
-      video.addEventListener('play', handleVideoPlay);
-    }
-
-    return () => {
-      if (video) {
-        video.removeEventListener('play', handleVideoPlay);
+      if (message.type === 'video') {
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => console.error("Video autoplay failed:", error));
+        }
       }
-    };
-  }, []);
+    }
+  }, [message.type]);
 
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
@@ -135,7 +130,8 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
             <video
               ref={videoRef}
               src={message.url!}
-              controls
+              autoPlay
+              playsInline
               className="rounded-md object-cover w-full max-w-[300px]"
               data-ai-hint="story video"
             />

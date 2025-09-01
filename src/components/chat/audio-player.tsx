@@ -29,10 +29,7 @@ export default function AudioPlayer({ src, autoplay = false, onEnded }: AudioPla
     const audio = audioRef.current;
     if (!audio) return;
 
-    const handlePlay = () => {
-      setIsPlaying(true);
-      document.querySelectorAll('video').forEach(video => video.pause());
-    };
+    const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
     const handleLoadedMetadata = () => {
       if (audio) setDuration(audio.duration);
