@@ -110,20 +110,20 @@ export default function Home() {
       setIsLoading(false);
   };
 
-  const getCity = async () => {
+  const getCity = async (): Promise<{city: string | null}> => {
     try {
       const response = await fetch('https://get.geojs.io/v1/ip/city.json');
       if (!response.ok) {
         const fallbackResponse = await fetch('https://ipapi.co/json/');
-         if(!fallbackResponse.ok) return 'do Brasil';
+         if(!fallbackResponse.ok) return {city: null};
         const fallbackData = await fallbackResponse.json();
-        return fallbackData.city || 'do Brasil'
+        return { city: fallbackData.city || null };
       }
       const data = await response.json();
-      return data.city ? decodeURIComponent(escape(data.city)) : 'do Brasil';
+      return { city: data.city ? decodeURIComponent(data.city) : null };
     } catch (error) {
       console.error("Error fetching city:", error);
-      return 'do Brasil';
+      return { city: null };
     }
   };
 
@@ -245,8 +245,12 @@ export default function Home() {
         setUserName(userMessageText);
         addMessage({ type: 'text', text: `${userMessageText}, nome de homem gostoso hehe 🔥😋` }, 'bot');
         await showLoadingIndicator(1500);
-        const currentCity = await getCity();
-        addMessage({ type: 'text', text: `eu moro em ${currentCity} gostoso,` }, 'bot');
+        const { city: currentCity } = await getCity();
+        if (currentCity) {
+            addMessage({ type: 'text', text: `eu moro em ${currentCity}, gostoso,` }, 'bot');
+        } else {
+            addMessage({ type: 'text', text: 'eu moro no Brasil, gostoso,' }, 'bot');
+        }
         await showLoadingIndicator(1500);
         addMessage({ type: 'text', text: "e você bb, de que cidade você é ?" }, 'bot');
         setShowInput(true);
@@ -443,3 +447,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
