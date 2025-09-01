@@ -314,6 +314,8 @@ export default function Home() {
       case 'awaiting_call_permission':
         await showLoadingIndicator(1500, "Gravando áudio...");
         await playAudioSequence(14, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-14.mp3');
+        await playAudioSequence(15, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-15.mp3');
+        await playAudioSequence(16, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-16.mp3');
         addMessage({ type: 'text', text: "posso te mandar meu pix amorzinho" }, 'bot');
         setShowInput(true);
         setFlowStep('awaiting_pix_permission');
@@ -321,11 +323,9 @@ export default function Home() {
 
       case 'awaiting_pix_permission':
         await showLoadingIndicator(1500, "Gravando áudio...");
-        await playAudioSequence(15, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-15.mp3');
-        await showLoadingIndicator(1500);
+        await playAudioSequence(17, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/zanam1atwtdp2u0wk192fa0x.mp3');
         addMessage({ type: 'text', text: "você vai querer ? bb uma chamadinha de video bem deliciosa comigo ??" }, 'bot');
         await showLoadingIndicator(1500);
-        await playAudioSequence(16, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-16.mp3');
         await handleCreatePix(1498);
         break;
       
