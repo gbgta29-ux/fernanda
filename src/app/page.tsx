@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -254,7 +255,7 @@ export default function Home() {
 
       case 'awaiting_user_city':
         setUserCity(userMessageText);
-        addMessage({ type: 'text', text: `aah bb, eu ja fui pra ai. muito bom saber que você é de ${userMessageText} 😍😊` }, 'bot');
+        addMessage({ type: 'text', text: `ahh eu gosto muito de ${userMessageText}. gostei de saber que você mora perto de mim rsrs 😊🔥` }, 'bot');
         await showLoadingIndicator(1500, "Gravando áudio...");
         await playAudioSequence(5, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-5.mp3');
         await playAudioSequence(6, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-6.mp3');
