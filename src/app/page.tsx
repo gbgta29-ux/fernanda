@@ -148,7 +148,7 @@ export default function Home() {
     setIsCreatingPix(true);
     if (!isUpsell) {
         await showLoadingIndicator(1500, "Gravando áudio...");
-        await playAudioSequence(1, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/zanam1atwtdp2u0wk192fa0x.mp3');
+        await playAudioSequence(17, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/zanam1atwtdp2u0wk192fa0x.mp3');
     }
     
     const charge = await createPixCharge(value);
@@ -322,9 +322,6 @@ export default function Home() {
         break;
 
       case 'awaiting_pix_permission':
-        await showLoadingIndicator(1500, "Gravando áudio...");
-        await playAudioSequence(17, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/zanam1atwtdp2u0wk192fa0x.mp3');
-        addMessage({ type: 'text', text: "você vai querer ? bb uma chamadinha de video bem deliciosa comigo ??" }, 'bot');
         await showLoadingIndicator(1500);
         await handleCreatePix(1498);
         break;
@@ -347,7 +344,7 @@ export default function Home() {
     <div className="bg-gradient-to-b from-red-900 via-red-800 to-black flex items-center justify-center h-screen font-body select-none">
       <div className="w-full h-dvh sm:w-[450px] sm:h-[95vh] sm:max-h-[900px] flex flex-col bg-background shadow-2xl relative overflow-hidden">
           {!isStarted && (
-            <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-black z-20 flex flex-col items-center justify-center gap-6 text-center p-4 animate-fadeIn">
+            <div className="absolute inset-0 bg-gradient-to-b from-red-900 via-red-800 to-black z-20 flex flex-col items-center justify-center gap-6 text-center p-4 animate-fadeIn">
               <div className="relative">
                 <Image
                     src="https://content.api.news/v3/images/bin/55d056d95292fb33b583e37fdbbc2ddf"
