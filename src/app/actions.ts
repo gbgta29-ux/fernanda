@@ -19,7 +19,10 @@ export interface PixChargeData {
 
 export async function createPixCharge(value: number): Promise<PixChargeData | null> {
   try {
-    const response = await fetch('https://api.pushinpay.com.br/api/pix/cashIn', {
+    const url = new URL('https://api.pushinpay.com.br/api/pix/cashIn');
+    url.searchParams.append('timestamp', Date.now().toString());
+
+    const response = await fetch(url.toString(), {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer 37882|6mVxPEZ5x7yJEmsJ4W6vAS52FGSKG6vGbZRAsq4Rb47c654c',
@@ -56,7 +59,10 @@ export async function createPixCharge(value: number): Promise<PixChargeData | nu
 
 export async function checkPaymentStatus(transactionId: string): Promise<{ status: string } | null> {
   try {
-    const response = await fetch(`https://api.pushinpay.com.br/api/transactions/${transactionId}`, {
+    const url = new URL(`https://api.pushinpay.com.br/api/transactions/${transactionId}`);
+    url.searchParams.append('timestamp', Date.now().toString());
+
+    const response = await fetch(url.toString(), {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer 37882|6mVxPEZ5x7yJEmsJ4W6vAS52FGSKG6vGbZRAsq4Rb47c654c',
