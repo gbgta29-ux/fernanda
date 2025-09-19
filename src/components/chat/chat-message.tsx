@@ -95,7 +95,7 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
           <>
             <div className="flex items-center gap-2.5">
               <Image
-                  src="https://content.api.news/v3/images/bin/55d056d95292fb33b583e37fdbbc2ddf"
+                  src="https://imperiumfragrance.shop/wp-content/uploads/2025/09/pcYY6LyS2IcTVdOgom3rMG3mib6fhceVWn6EcT8qbCRKKvna-jjoIZ1VBKMi8OHrEHbsB3D6mCX3IssLufpNewM5bbkYvnWTI03B5SoXqF3wDRhqiZg2mmUnmslQOhSBTkzI7U5oWsuaT9Xv8Q.jpeg"
                   data-ai-hint="woman profile"
                   alt="Fernanda Lopes"
                   width={40}

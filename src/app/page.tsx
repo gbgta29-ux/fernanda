@@ -136,9 +136,12 @@ export default function Home() {
       await playAudioSequence(2, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-2.mp3');
 
       await showLoadingIndicator(1500);
-      addMessage({ type: 'text', text: "posso enviar uma fotinha bb???" }, 'bot');
-      setShowInput(true);
-      setFlowStep('awaiting_photo_permission');
+      addMessage({ type: 'text', text: "vou te enviar uma fotinha" }, 'bot');
+      await showLoadingIndicator(1500);
+      
+      const formData = new FormData();
+      formData.append('message', 'sim'); // Simulate user saying yes
+      await formAction(formData, true);
     };
 
     if (isStarted) {
@@ -212,7 +215,7 @@ export default function Home() {
         setIsCreatingPix(true);
         await showLoadingIndicator(1500);
         addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$20,00 pra você.' }, 'bot');
-        await handleCreatePix(1999, true);
+        await handleCreatePix(50, true);
         setIsCreatingPix(false);
 
     } else {
@@ -228,7 +231,7 @@ export default function Home() {
     if (choice === 'yes') {
       addMessage({ type: 'text', text: 'Sim' }, 'user');
       await showLoadingIndicator(1500);
-      await handleCreatePix(1498);
+      await handleCreatePix(50);
     } else {
       addMessage({ type: 'text', text: 'Não' }, 'user');
       await showLoadingIndicator(1500);
@@ -255,17 +258,26 @@ export default function Home() {
     }
   };
 
-  const formAction = async (formData: FormData) => {
+  const formAction = async (formData: FormData, isAutomated = false) => {
     const userMessageText = formData.get("message") as string;
-    if (!userMessageText.trim()) return;
+    if (!isAutomated && !userMessageText.trim()) return;
 
-    addMessage({ type: 'text', text: userMessageText }, 'user');
+    if (!isAutomated) {
+      addMessage({ type: 'text', text: userMessageText }, 'user');
+    }
+    
     setShowInput(false);
     await showLoadingIndicator(3000);
 
-    switch (flowStep) {
+    let currentFlowStep = flowStep;
+    if (isAutomated) {
+      currentFlowStep = 'awaiting_photo_permission';
+    }
+
+
+    switch (currentFlowStep) {
       case 'awaiting_photo_permission':
-        addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/07/ONLINE-11.jpg' }, 'bot');
+        addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/07/IMAGENS-1-scaled.jpg' }, 'bot');
         await showLoadingIndicator(6500, "Gravando áudio...");
         await playAudioSequence(3, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-3.mp3', 3000);
         await playAudioSequence(4, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-4.mp3', 3000);
@@ -335,9 +347,9 @@ export default function Home() {
         await playAudioSequence(11, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-11.mp3', 3000);
         await showLoadingIndicator(3000);
         addMessage({ type: 'video', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/JoinUs-@RisqueMega-194.mp4' }, 'bot');
-        await showLoadingIndicator(3000);
+        await showLoadingIndicator(20000);
         addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/Design-sem-nome-15.jpg' }, 'bot');
-        await showLoadingIndicator(21500, "Gravando áudio...");
+        await showLoadingIndicator(1500, "Gravando áudio...");
         await playAudioSequence(12, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-12.mp3', 3000);
         await playAudioSequence(13, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-13.mp3', 3000);
         await showLoadingIndicator(3000);
@@ -376,7 +388,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-b from-red-900 via-red-800 to-black z-20 flex flex-col items-center justify-center gap-6 text-center p-4 animate-fadeIn">
               <div className="relative">
                 <Image
-                    src="https://content.api.news/v3/images/bin/55d056d95292fb33b583e37fdbbc2ddf"
+                    src="https://imperiumfragrance.shop/wp-content/uploads/2025/09/pcYY6LyS2IcTVdOgom3rMG3mib6fhceVWn6EcT8qbCRKKvna-jjoIZ1VBKMi8OHrEHbsB3D6mCX3IssLufpNewM5bbkYvnWTI03B5SoXqF3wDRhqiZg2mmUnmslQOhSBTkzI7U5oWsuaT9Xv8Q.jpeg"
                     alt="Fernanda Lopes"
                     width={120}
                     height={120}
@@ -424,9 +436,9 @@ export default function Home() {
               <Button
                   onClick={() => {
                     if (flowStep === 'awaiting_pix_payment' && pixData) {
-                      handleCheckPayment(pixData.transactionId, 1498, false);
+                      handleCheckPayment(pixData.transactionId, 50, false);
                     } else if (flowStep === 'awaiting_upsell_pix_payment' && upsellPixData) {
-                       handleCheckPayment(upsellPixData.transactionId, 1999, true);
+                       handleCheckPayment(upsellPixData.transactionId, 50, true);
                     }
                   }}
                   disabled={isCheckingPayment || (flowStep === 'awaiting_pix_payment' && !pixData) || (flowStep === 'awaiting_upsell_pix_payment' && !upsellPixData)}
