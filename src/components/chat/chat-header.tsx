@@ -1,12 +1,9 @@
 import Image from 'next/image';
-import { ArrowLeft, Video, Phone, MoreVertical, FlaskConical } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { ArrowLeft, Video, Phone, MoreVertical } from 'lucide-react';
 
-interface ChatHeaderProps {
-  onTestClick: () => void;
-}
+interface ChatHeaderProps {}
 
-export default function ChatHeader({ onTestClick }: ChatHeaderProps) {
+export default function ChatHeader({}: ChatHeaderProps) {
   return (
     <header className="flex items-center p-2.5 bg-white text-black shadow-sm z-10 shrink-0">
       <button aria-label="Voltar" className="p-2 -ml-2">
@@ -25,11 +22,6 @@ export default function ChatHeader({ onTestClick }: ChatHeaderProps) {
         <p className="text-xs text-gray-600 leading-tight">online</p>
       </div>
       <div className="flex items-center space-x-1">
-        {process.env.NODE_ENV === 'development' && (
-            <Button onClick={onTestClick} variant="ghost" size="icon" aria-label="Modo Teste">
-                <FlaskConical className="h-5 w-5" />
-            </Button>
-        )}
         <button aria-label="Video Call" className="p-2">
           <Video className="h-6 w-6" />
         </button>
@@ -43,5 +35,3 @@ export default function ChatHeader({ onTestClick }: ChatHeaderProps) {
     </header>
   );
 }
-
-    

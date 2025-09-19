@@ -405,17 +405,7 @@ export default function Home() {
               </Button>
             </div>
           )}
-          <ChatHeader onTestClick={() => {
-            setFlowStep('awaiting_pix_permission_options');
-            setMessages(prev => [...prev, {
-              id: Date.now(),
-              sender: 'bot',
-              type: 'text',
-              text: "posso te mandar meu pix amorzinho",
-              timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
-              status: 'sent',
-            }])
-          }} />
+          <ChatHeader />
           <div 
             className="flex-1 overflow-y-auto"
             style={{
