@@ -6,7 +6,7 @@ import Image from "next/image";
 import AudioPlayer from "./audio-player";
 import { Button } from "../ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface ChatMessageProps {
   message: Message;
@@ -30,17 +30,46 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
   const isUser = message.sender === 'user';
   const { toast } = useToast();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [loopCount, setLoopCount] = useState(0);
 
   useEffect(() => {
     const video = videoRef.current;
     if (video && message.type === 'video') {
-      video.muted = false; // Ensure sound is on
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => console.error("Video autoplay failed:", error));
+      const isFirstVideo = message.url === 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/JoinUs-@RisqueMega-194.mp4';
+      
+      video.muted = isFirstVideo;
+      video.loop = !isFirstVideo;
+
+      const handlePlay = () => {
+        if(isFirstVideo) {
+          video.play().catch(error => console.error("Video autoplay failed:", error));
+        }
+      }
+
+      const handleEnded = () => {
+        if (isFirstVideo) {
+          setLoopCount(prev => {
+            const nextCount = prev + 1;
+            if (nextCount < 2) {
+              video.play();
+            }
+            return nextCount;
+          });
+        }
+      };
+
+      if(isFirstVideo){
+        video.addEventListener('ended', handleEnded);
+        handlePlay(); // Start playing for the first time
+      } else {
+         video.play().catch(error => console.error("Video autoplay failed:", error));
+      }
+
+      return () => {
+        if(isFirstVideo) video.removeEventListener('ended', handleEnded);
       }
     }
-  }, [message.type, message.url]);
+  }, [message.type, message.url, loopCount]);
 
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
@@ -131,8 +160,6 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
               src={message.url!}
               autoPlay
               playsInline
-              loop
-              muted={false}
               className="rounded-md object-cover w-full max-w-[300px]"
               data-ai-hint="story video"
             />

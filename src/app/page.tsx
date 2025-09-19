@@ -215,7 +215,7 @@ export default function Home() {
         setIsCreatingPix(true);
         await showLoadingIndicator(1500);
         addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$20,00 pra você.' }, 'bot');
-        await handleCreatePix(50, true);
+        await handleCreatePix(1501, true);
         setIsCreatingPix(false);
 
     } else {
@@ -231,7 +231,7 @@ export default function Home() {
     if (choice === 'yes') {
       addMessage({ type: 'text', text: 'Sim' }, 'user');
       await showLoadingIndicator(1500);
-      await handleCreatePix(50);
+      await handleCreatePix(1498);
     } else {
       addMessage({ type: 'text', text: 'Não' }, 'user');
       await showLoadingIndicator(1500);
@@ -348,7 +348,7 @@ export default function Home() {
         await showLoadingIndicator(3000);
         addMessage({ type: 'video', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/JoinUs-@RisqueMega-194.mp4' }, 'bot');
         await showLoadingIndicator(20000);
-        addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/Design-sem-nome-15.jpg' }, 'bot');
+        addMessage({ type: 'video', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/Sem-nome-Story.mp4' }, 'bot');
         await showLoadingIndicator(1500, "Gravando áudio...");
         await playAudioSequence(12, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-12.mp3', 3000);
         await playAudioSequence(13, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-13.mp3', 3000);
@@ -426,9 +426,9 @@ export default function Home() {
               <Button
                   onClick={() => {
                     if (flowStep === 'awaiting_pix_payment' && pixData) {
-                      handleCheckPayment(pixData.transactionId, 50, false);
+                      handleCheckPayment(pixData.transactionId, 1498, false);
                     } else if (flowStep === 'awaiting_upsell_pix_payment' && upsellPixData) {
-                       handleCheckPayment(upsellPixData.transactionId, 50, true);
+                       handleCheckPayment(upsellPixData.transactionId, 1501, true);
                     }
                   }}
                   disabled={isCheckingPayment || (flowStep === 'awaiting_pix_payment' && !pixData) || (flowStep === 'awaiting_upsell_pix_payment' && !upsellPixData)}
@@ -513,4 +513,6 @@ export default function Home() {
 }
 
     
+    
+
     
