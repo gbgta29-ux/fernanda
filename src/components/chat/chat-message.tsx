@@ -35,41 +35,34 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
   useEffect(() => {
     const video = videoRef.current;
     if (video && message.type === 'video') {
-      const isFirstVideo = message.url === 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/JoinUs-@RisqueMega-194.mp4';
-      
-      video.muted = isFirstVideo;
-      video.loop = !isFirstVideo;
-
-      const handlePlay = () => {
-        if(isFirstVideo) {
-          video.play().catch(error => console.error("Video autoplay failed:", error));
-        }
-      }
+      video.loop = false; // Disable native loop
+      video.muted = message.url === 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/JoinUs-@RisqueMega-194.mp4';
 
       const handleEnded = () => {
-        if (isFirstVideo) {
-          setLoopCount(prev => {
-            const nextCount = prev + 1;
-            if (nextCount < 2) {
-              video.play();
-            }
-            return nextCount;
-          });
-        }
+        setLoopCount(prev => {
+          const nextCount = prev + 1;
+          if (nextCount < 2) {
+            video.play();
+          }
+          return nextCount;
+        });
       };
 
-      if(isFirstVideo){
-        video.addEventListener('ended', handleEnded);
-        handlePlay(); // Start playing for the first time
-      } else {
-         video.play().catch(error => console.error("Video autoplay failed:", error));
-      }
+      const handleCanPlay = () => {
+        video.play().catch(error => console.error("Video autoplay failed:", error));
+      };
+
+      video.addEventListener('ended', handleEnded);
+      // Use canplaythrough to ensure video is ready before playing
+      video.addEventListener('canplaythrough', handleCanPlay, { once: true });
+
 
       return () => {
-        if(isFirstVideo) video.removeEventListener('ended', handleEnded);
+        video.removeEventListener('ended', handleEnded);
+        video.removeEventListener('canplaythrough', handleCanPlay);
       }
     }
-  }, [message.type, message.url, loopCount]);
+  }, [message.type, message.url]);
 
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
