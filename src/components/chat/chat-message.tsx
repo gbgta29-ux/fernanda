@@ -33,15 +33,14 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
 
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
-      if (message.type === 'video') {
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(error => console.error("Video autoplay failed:", error));
-        }
+    if (video && message.type === 'video') {
+      video.muted = false; // Ensure sound is on
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => console.error("Video autoplay failed:", error));
       }
     }
-  }, [message.type]);
+  }, [message.type, message.url]);
 
   const handleCopyCode = (code: string) => {
     navigator.clipboard.writeText(code);
@@ -132,6 +131,8 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
               src={message.url!}
               autoPlay
               playsInline
+              loop
+              muted={false}
               className="rounded-md object-cover w-full max-w-[300px]"
               data-ai-hint="story video"
             />
@@ -164,3 +165,5 @@ export default function ChatMessage({ message, isAutoPlaying = false }: ChatMess
     </div>
   );
 }
+
+    
