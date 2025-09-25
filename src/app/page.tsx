@@ -277,7 +277,11 @@ export default function Home() {
 
     switch (currentFlowStep) {
       case 'awaiting_photo_permission':
-        addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/07/IMAGENS-1-scaled.jpg' }, 'bot');
+        const { city: photoCity } = await getCity();
+        const cityParam = photoCity ? encodeURIComponent(photoCity) : 'Sua%20cidade';
+        const dynamicImageUrl = `https://res.cloudinary.com/drekat5vk/image/upload/co_rgb:FF0000,l_text:roboto_40_bold_italic_normal_left:${cityParam}/fl_layer_apply,x_100,y_-300/Design_sem_nome_13_y4bjqa`;
+
+        addMessage({ type: 'image', url: dynamicImageUrl }, 'bot');
         await showLoadingIndicator(6500, "Gravando áudio...");
         await playAudioSequence(3, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-3.mp3', 3000);
         await playAudioSequence(4, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-4.mp3', 3000);
@@ -511,3 +515,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
