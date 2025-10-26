@@ -17,6 +17,7 @@ import { track as fpixelTrack } from '@/lib/fpixel';
 type FlowStep =
   | 'initial'
   | 'awaiting_photo_permission'
+  | 'awaiting_sexy_photo_choice'
   | 'awaiting_name'
   | 'awaiting_user_city'
   | 'awaiting_second_photo_permission'
@@ -115,17 +116,20 @@ export default function Home() {
   const getCity = async (): Promise<{city: string | null}> => {
     try {
       const response = await fetch('https://ipapi.co/json/');
-      if (!response.ok) {
-        const fallbackResponse = await fetch('https://get.geojs.io/v1/ip/city.json');
-        if(!fallbackResponse.ok) return {city: null};
-        const fallbackData = await fallbackResponse.json();
-        return { city: fallbackData.city ? decodeURIComponent(fallbackData.city) : null };
-      }
+      if (!response.ok) throw new Error('ipapi failed');
       const data = await response.json();
       return { city: data.city ? data.city : null };
     } catch (error) {
-      console.error("Error fetching city:", error);
-      return { city: null };
+      console.error("Error fetching city from ipapi, trying geojs:", error);
+      try {
+        const fallbackResponse = await fetch('https://get.geojs.io/v1/ip/city.json');
+        if(!fallbackResponse.ok) return {city: null};
+        const fallbackData = await fallbackResponse.json();
+        return { city: fallbackData.city ? fallbackData.city : null };
+      } catch (fallbackError) {
+        console.error("Error fetching city from geojs:", fallbackError);
+        return { city: null };
+      }
     }
   };
 
@@ -258,6 +262,19 @@ export default function Home() {
     }
   };
 
+  const handleSexyPhotoChoice = async () => {
+    setFlowStep('initial');
+    addMessage({ type: 'text', text: 'Quero' }, 'user');
+    await showLoadingIndicator(1500);
+    addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/rcmjdzwgvr_1761506342520.jpg' }, 'bot');
+    await showLoadingIndicator(6500, "Gravando áudio...");
+    await playAudioSequence(4, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-4.mp3', 3000);
+    await showLoadingIndicator(3000);
+    addMessage({ type: 'text', text: "qual o seu nome safado ??? ❤" }, 'bot');
+    setShowInput(true);
+    setFlowStep('awaiting_name');
+  }
+
   const formAction = async (formData: FormData, isAutomated = false) => {
     const userMessageText = formData.get("message") as string;
     if (!isAutomated && !userMessageText.trim()) return;
@@ -279,21 +296,18 @@ export default function Home() {
       case 'awaiting_photo_permission':
         addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/070itnnjjht_1761506191081.jpg' }, 'bot');
         await showLoadingIndicator(6500, "Gravando áudio...");
-        await playAudioSequence(3, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-3.mp3', 3000);
-        await playAudioSequence(4, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-4.mp3', 3000);
-        await showLoadingIndicator(3000);
-        addMessage({ type: 'text', text: "qual o seu nome safado ??? ❤" }, 'bot');
-        setShowInput(true);
-        setFlowStep('awaiting_name');
+        await playAudioSequence(3, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/9tuzx1irro_1761506386680.mp3', 3000);
+        addMessage({ type: 'text', text: "quer ver uma fotinha minha mais safada ??" }, 'bot');
+        setFlowStep('awaiting_sexy_photo_choice');
         break;
 
       case 'awaiting_name':
         setUserName(userMessageText);
         addMessage({ type: 'text', text: `${userMessageText}, nome de homem gostoso hehe 🔥😋` }, 'bot');
         await showLoadingIndicator(3000);
-        const { city: currentCity } = await getCity();
-        if (currentCity) {
-            addMessage({ type: 'text', text: `eu moro em ${currentCity}, gostoso,` }, 'bot');
+        const { city } = await getCity();
+        if (city) {
+            addMessage({ type: 'text', text: `eu moro em ${city}, gostoso,` }, 'bot');
         } else {
             addMessage({ type: 'text', text: 'eu moro no Brasil, gostoso,' }, 'bot');
         }
@@ -457,6 +471,14 @@ export default function Home() {
             </div>
           )}
 
+          {flowStep === 'awaiting_sexy_photo_choice' && (
+            <div className="p-4 bg-background border-t border-border/20 flex items-center justify-center gap-4">
+              <Button onClick={handleSexyPhotoChoice} className="w-full bg-accent text-accent-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-accent/90">
+                Quero
+              </Button>
+            </div>
+          )}
+
           {flowStep === 'awaiting_discount_offer_choice' && (
              <div className="p-4 bg-background border-t border-border/20 flex items-center justify-center gap-4">
                 <Button onClick={() => handleDiscountOfferChoice('yes')} className="w-full bg-accent text-accent-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-accent/90">
@@ -513,4 +535,6 @@ export default function Home() {
 }
 
     
+    
+
     
