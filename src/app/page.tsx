@@ -18,12 +18,6 @@ type FlowStep =
   | 'initial'
   | 'awaiting_photo_permission'
   | 'awaiting_sexy_photo_choice'
-  | 'awaiting_name'
-  | 'awaiting_user_city'
-  | 'awaiting_second_photo_permission'
-  | 'awaiting_after_second_photo'
-  | 'awaiting_chupar_ou_fuder'
-  | 'awaiting_video_permission'
   | 'awaiting_call_permission'
   | 'awaiting_pix_permission_options'
   | 'awaiting_pix_generation'
@@ -43,8 +37,6 @@ export default function Home() {
   const [autoPlayingAudioId, setAutoPlayingAudioId] = useState<number | null>(null);
   const [showInput, setShowInput] = useState(false);
   const [flowStep, setFlowStep] = useState<FlowStep>('initial');
-  const [userName, setUserName] = useState('');
-  const [userCity, setUserCity] = useState('');
   const [isCreatingPix, setIsCreatingPix] = useState(false);
   const [isCheckingPayment, setIsCheckingPayment] = useState(false);
   const [pixData, setPixData] = useState<PixChargeData | null>(null);
@@ -111,26 +103,6 @@ export default function Home() {
       setIsLoading(true);
       await delay(duration);
       setIsLoading(false);
-  };
-
-  const getCity = async (): Promise<{city: string | null}> => {
-    try {
-      const response = await fetch('https://ipapi.co/json/');
-      if (!response.ok) throw new Error('ipapi failed');
-      const data = await response.json();
-      return { city: data.city ? data.city : null };
-    } catch (error) {
-      console.error("Error fetching city from ipapi, trying geojs:", error);
-      try {
-        const fallbackResponse = await fetch('https://get.geojs.io/v1/ip/city.json');
-        if(!fallbackResponse.ok) return {city: null};
-        const fallbackData = await fallbackResponse.json();
-        return { city: fallbackData.city ? fallbackData.city : null };
-      } catch (fallbackError) {
-        console.error("Error fetching city from geojs:", fallbackError);
-        return { city: null };
-      }
-    }
   };
 
   useEffect(() => {
@@ -277,20 +249,13 @@ export default function Home() {
 
     await showLoadingIndicator(15000); // Wait for video to "play"
     
-    addMessage({ type: 'text', text: `ahh eu gosto muito de ${userCity}. gostei de saber que você mora perto de mim rsrs 😊🔥` }, 'bot');
+    // After the video, go directly to pix permission
     await showLoadingIndicator(3000, "Gravando áudio...");
-    await playAudioSequence(5, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-5.mp3', 3000);
-    await playAudioSequence(6, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-6.mp3', 3000);
-    await showLoadingIndicator(3000);
-    addMessage({ type: 'text', text: "vou mandar outra fotinha bb" }, 'bot');
-    await showLoadingIndicator(3000);
-    setFlowStep('awaiting_second_photo_permission');
-    
-    // Manually trigger the next step after a delay to simulate natural flow
-    await delay(100);
-    const nextFormData = new FormData();
-    nextFormData.append('message', 'continue');
-    await formAction(nextFormData, true);
+    await playAudioSequence(14, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-14.mp3', 3000);
+    await playAudioSequence(15, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-15.mp3', 3000);
+    await playAudioSequence(16, 'https://imperiumfragrance.shop/wp-content/uploads/2025/09/ElevenLabs_2025-09-19T18_39_42_Amanda-Kelly_pvc_sp100_s50_sb75_v3.mp3', 3000);
+    addMessage({ type: 'text', text: "posso te mandar meu pix amorzinho" }, 'bot');
+    setFlowStep('awaiting_pix_permission_options');
   }
 
   const formAction = async (formData: FormData, isAutomated = false) => {
@@ -306,11 +271,7 @@ export default function Home() {
 
     let currentFlowStep = flowStep;
     if (isAutomated) {
-        if(flowStep === 'initial') { // Initial automatic message
-             currentFlowStep = 'awaiting_photo_permission';
-        } else { // Subsequent automatic messages
-             currentFlowStep = 'awaiting_second_photo_permission';
-        }
+        currentFlowStep = 'awaiting_photo_permission';
     }
 
 
@@ -321,57 +282,6 @@ export default function Home() {
         await playAudioSequence(3, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/9tuzx1irro_1761506386680.mp3', 3000);
         addMessage({ type: 'text', text: "quer ver uma fotinha minha mais safada ??" }, 'bot');
         setFlowStep('awaiting_sexy_photo_choice');
-        break;
-
-      case 'awaiting_name':
-        // This case is no longer triggered directly
-        break;
-
-      case 'awaiting_user_city':
-        // This case is no longer triggered directly
-        break;
-
-      case 'awaiting_second_photo_permission':
-        addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/Design-sem-nome-14.jpg' }, 'bot');
-        await showLoadingIndicator(3000, "Gravando áudio...");
-        await playAudioSequence(7, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-7.mp3', 3000);
-        await showLoadingIndicator(3000);
-        // Fallthrough to next step
-        setFlowStep('awaiting_after_second_photo');
-        // fall-through
-      case 'awaiting_after_second_photo':
-        await showLoadingIndicator(3000, "Gravando áudio...");
-        await playAudioSequence(8, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-8.mp3', 3000);
-        await showLoadingIndicator(3000);
-        addMessage({ type: 'text', text: "voce ia  me chupar todinha ou me fuder gostoso ? ou fazer os 2 ? hehe 🔥🔥" }, 'bot');
-        setShowInput(true);
-        setFlowStep('awaiting_chupar_ou_fuder');
-        break;
-
-      case 'awaiting_chupar_ou_fuder':
-        await showLoadingIndicator(3000, "Gravando áudio...");
-        await playAudioSequence(9, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-9.mp3', 3000);
-        await playAudioSequence(10, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-10.mp3', 3000);
-        await showLoadingIndicator(3000);
-        addMessage({ type: 'text', text: "vou mandar uma fotinha e um video pra vc s2, espero que goste ." }, 'bot');
-        await showLoadingIndicator(3000);
-        // Fallthrough to next step
-        setFlowStep('awaiting_video_permission');
-         // fall-through
-      case 'awaiting_video_permission':
-        await showLoadingIndicator(3000, "Gravando áudio...");
-        await playAudioSequence(11, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-11.mp3', 3000);
-        await showLoadingIndicator(3000);
-        addMessage({ type: 'video', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/JoinUs-@RisqueMega-194.mp4' }, 'bot');
-        await showLoadingIndicator(20000);
-        addMessage({ type: 'video', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/Sem-nome-Story.mp4' }, 'bot');
-        await showLoadingIndicator(1500, "Gravando áudio...");
-        await playAudioSequence(12, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-12.mp3', 3000);
-        await playAudioSequence(13, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-13.mp3', 3000);
-        await showLoadingIndicator(3000);
-        addMessage({ type: 'text', text: "o que acha da gente brincar em uma chamadinha de vídeo só nos dois?? 😊😊" }, 'bot');
-        setShowInput(true);
-        setFlowStep('awaiting_call_permission');
         break;
 
       case 'awaiting_call_permission':
@@ -535,5 +445,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
