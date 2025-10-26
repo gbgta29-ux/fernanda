@@ -266,7 +266,7 @@ export default function Home() {
     setFlowStep('initial');
     addMessage({ type: 'text', text: 'Quero' }, 'user');
     await showLoadingIndicator(1500);
-    addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/rcmjdzwgvr_1761506342520.jpg' }, 'bot');
+    addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/k7z46bivb6f_1761506670522.jpg' }, 'bot');
     await showLoadingIndicator(6500, "Gravando áudio...");
     await playAudioSequence(4, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-4.mp3', 3000);
     await showLoadingIndicator(3000);
