@@ -46,6 +46,12 @@ const nextConfig: NextConfig = {
         hostname: 'content.api.news',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'gvdtvgefzbxunjrtzrdw.supabase.co',
+        port: '',
+        pathname: '/**',
       }
     ],
   },

@@ -392,15 +392,15 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-b from-red-900 via-red-800 to-black z-20 flex flex-col items-center justify-center gap-6 text-center p-4 animate-fadeIn">
               <div className="relative">
                 <Image
-                    src="https://imperiumfragrance.shop/wp-content/uploads/2025/09/pcYY6LyS2IcTVdOgom3rMG3mib6fhceVWn6EcT8qbCRKKvna-jjoIZ1VBKMi8OHrEHbsB3D6mCX3IssLufpNewM5bbkYvnWTI03B5SoXqF3wDRhqiZg2mmUnmslQOhSBTkzI7U5oWsuaT9Xv8Q.jpeg"
-                    alt="Fernanda Lopes"
+                    src="https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/iv9za2zyprq_1761505835311.jpg"
+                    alt="Lari"
                     width={120}
                     height={120}
                     className="rounded-full border-4 border-white object-cover aspect-square shadow-2xl animate-pulseGlow"
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <h1 className="text-white text-3xl font-bold tracking-tight">Fernanda Lopes</h1>
+                <h1 className="text-white text-3xl font-bold tracking-tight">Lari</h1>
                 <p className="text-white/80 text-lg">enviou uma nova mensagem de áudio</p>
               </div>
               <Button onClick={() => setIsStarted(true)} size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground mt-6 rounded-full py-7 px-10 text-lg font-bold shadow-lg animate-pulseButton">

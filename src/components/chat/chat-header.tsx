@@ -10,15 +10,15 @@ export default function ChatHeader({}: ChatHeaderProps) {
         <ArrowLeft className="h-6 w-6" />
       </button>
       <Image
-        src="https://imperiumfragrance.shop/wp-content/uploads/2025/09/pcYY6LyS2IcTVdOgom3rMG3mib6fhceVWn6EcT8qbCRKKvna-jjoIZ1VBKMi8OHrEHbsB3D6mCX3IssLufpNewM5bbkYvnWTI03B5SoXqF3wDRhqiZg2mmUnmslQOhSBTkzI7U5oWsuaT9Xv8Q.jpeg"
+        src="https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/iv9za2zyprq_1761505835311.jpg"
         data-ai-hint="woman profile"
-        alt="Fernanda Lopes"
+        alt="Lari"
         width={40}
         height={40}
         className="rounded-full object-cover aspect-square"
       />
       <div className="ml-3 flex-1">
-        <h1 className="font-semibold text-base leading-tight">Fernanda Lopes</h1>
+        <h1 className="font-semibold text-base leading-tight">Lari</h1>
         <p className="text-xs text-gray-600 leading-tight">online</p>
       </div>
       <div className="flex items-center space-x-1">
