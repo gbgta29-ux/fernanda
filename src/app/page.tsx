@@ -273,16 +273,24 @@ export default function Home() {
     await playAudioSequence(4.5, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/0c1gif2e8ss_1761506894706.mp3', 3000);
     
     await showLoadingIndicator(3000);
-    const { city } = await getCity();
-    if (city) {
-        addMessage({ type: 'text', text: `eu moro em ${city}, gostoso,` }, 'bot');
-    } else {
-        addMessage({ type: 'text', text: 'eu moro no Brasil, gostoso,' }, 'bot');
-    }
+    addMessage({ type: 'video', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/ij3wa3d4m8f_1761507062595.mp4' }, 'bot');
+
+    await showLoadingIndicator(15000); // Wait for video to "play"
+    
+    addMessage({ type: 'text', text: `ahh eu gosto muito de ${userCity}. gostei de saber que você mora perto de mim rsrs 😊🔥` }, 'bot');
+    await showLoadingIndicator(3000, "Gravando áudio...");
+    await playAudioSequence(5, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-5.mp3', 3000);
+    await playAudioSequence(6, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-6.mp3', 3000);
     await showLoadingIndicator(3000);
-    addMessage({ type: 'text', text: "e você bb, de que cidade você é ?" }, 'bot');
-    setShowInput(true);
-    setFlowStep('awaiting_user_city');
+    addMessage({ type: 'text', text: "vou mandar outra fotinha bb" }, 'bot');
+    await showLoadingIndicator(3000);
+    setFlowStep('awaiting_second_photo_permission');
+    
+    // Manually trigger the next step after a delay to simulate natural flow
+    await delay(100);
+    const nextFormData = new FormData();
+    nextFormData.append('message', 'continue');
+    await formAction(nextFormData, true);
   }
 
   const formAction = async (formData: FormData, isAutomated = false) => {
@@ -298,7 +306,11 @@ export default function Home() {
 
     let currentFlowStep = flowStep;
     if (isAutomated) {
-      currentFlowStep = 'awaiting_photo_permission';
+        if(flowStep === 'initial') { // Initial automatic message
+             currentFlowStep = 'awaiting_photo_permission';
+        } else { // Subsequent automatic messages
+             currentFlowStep = 'awaiting_second_photo_permission';
+        }
     }
 
 
@@ -312,22 +324,13 @@ export default function Home() {
         break;
 
       case 'awaiting_name':
-        // This case is no longer triggered directly by user input after handleSexyPhotoChoice changes.
-        // It's kept here in case we need to reintroduce it. The logic will now be in awaiting_user_city
+        // This case is no longer triggered directly
         break;
 
       case 'awaiting_user_city':
-        setUserCity(userMessageText);
-        addMessage({ type: 'text', text: `ahh eu gosto muito de ${userMessageText}. gostei de saber que você mora perto de mim rsrs 😊🔥` }, 'bot');
-        await showLoadingIndicator(3000, "Gravando áudio...");
-        await playAudioSequence(5, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-5.mp3', 3000);
-        await playAudioSequence(6, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-6.mp3', 3000);
-        await showLoadingIndicator(3000);
-        addMessage({ type: 'text', text: "vou mandar outra fotinha bb" }, 'bot');
-        await showLoadingIndicator(3000);
-        // Fallthrough to next step
-        setFlowStep('awaiting_second_photo_permission');
-        // fall-through
+        // This case is no longer triggered directly
+        break;
+
       case 'awaiting_second_photo_permission':
         addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/Design-sem-nome-14.jpg' }, 'bot');
         await showLoadingIndicator(3000, "Gravando áudio...");
@@ -532,3 +535,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
