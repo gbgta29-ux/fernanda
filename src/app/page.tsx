@@ -132,8 +132,8 @@ export default function Home() {
   useEffect(() => {
     const runWelcomeFlow = async () => {
       await showLoadingIndicator(1500, "Gravando áudio...");
-      await playAudioSequence(1, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-1.mp3');
-      await playAudioSequence(2, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-2.mp3');
+      await playAudioSequence(1, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/atdqhpgrvds_1761505648918.mp3');
+      await playAudioSequence(2, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/4yk7dyz8ul2_1761505826958.mp3');
 
       await showLoadingIndicator(1500);
       addMessage({ type: 'text', text: "vou te enviar uma fotinha" }, 'bot');
@@ -516,4 +516,5 @@ export default function Home() {
   );
 }
 
+    
     
