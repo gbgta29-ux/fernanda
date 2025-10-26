@@ -18,7 +18,9 @@ type FlowStep =
   | 'initial'
   | 'awaiting_photo_permission'
   | 'awaiting_sexy_photo_choice'
-  | 'awaiting_call_permission'
+  | 'awaiting_tesao_response'
+  | 'awaiting_video_feedback'
+  | 'awaiting_promise'
   | 'awaiting_pix_permission_options'
   | 'awaiting_pix_generation'
   | 'awaiting_pix_payment'
@@ -115,9 +117,11 @@ export default function Home() {
       addMessage({ type: 'text', text: "vou te enviar uma fotinha" }, 'bot');
       await showLoadingIndicator(1500);
       
-      const formData = new FormData();
-      formData.append('message', 'sim'); // Simulate user saying yes
-      await formAction(formData, true);
+      addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/070itnnjjht_1761506191081.jpg' }, 'bot');
+      await showLoadingIndicator(6500, "Gravando áudio...");
+      await playAudioSequence(3, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/9tuzx1irro_1761506386680.mp3', 3000);
+      addMessage({ type: 'text', text: "quer ver uma fotinha minha mais safada ??" }, 'bot');
+      setFlowStep('awaiting_sexy_photo_choice');
     };
 
     if (isStarted) {
@@ -130,7 +134,7 @@ export default function Home() {
     setIsCreatingPix(true);
     if (!isUpsell) {
         await showLoadingIndicator(1500, "Gravando áudio...");
-        await playAudioSequence(17, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/zanam1atwtdp2u0wk192fa0x.mp3');
+        await playAudioSequence(17, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/l1be2q1igvo_1761511117948.mp3');
     }
     
     const charge = await createPixCharge(value);
@@ -148,7 +152,7 @@ export default function Home() {
       }
     } else {
       addMessage({ type: 'text', text: "Ops, não consegui gerar o PIX agora, amor. Tenta de novo em um minutinho." }, 'bot');
-      setFlowStep(isUpsell ? 'payment_confirmed_awaiting_upsell_choice' : 'awaiting_call_permission');
+      setFlowStep(isUpsell ? 'payment_confirmed_awaiting_upsell_choice' : 'awaiting_pix_permission_options');
       if(!isUpsell) setShowInput(true); 
     }
     setIsCreatingPix(false);
@@ -191,7 +195,7 @@ export default function Home() {
         setIsCreatingPix(true);
         await showLoadingIndicator(1500);
         addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$20,00 pra você.' }, 'bot');
-        await handleCreatePix(1501, true);
+        await handleCreatePix(2000, true);
         setIsCreatingPix(false);
 
     } else {
@@ -203,31 +207,27 @@ export default function Home() {
   }
 
   const handlePixPermissionChoice = async (choice: 'yes' | 'no') => {
-    setFlowStep('initial'); // Disable buttons
+    setFlowStep('initial');
     if (choice === 'yes') {
-      addMessage({ type: 'text', text: 'Sim' }, 'user');
+      addMessage({ type: 'text', text: 'Manda o Pix bb 💸' }, 'user');
       await showLoadingIndicator(1500);
       await handleCreatePix(1498);
     } else {
-      addMessage({ type: 'text', text: 'Não' }, 'user');
+      addMessage({ type: 'text', text: 'Não tô pronto ainda 😕' }, 'user');
       await showLoadingIndicator(1500);
-      addMessage({ type: 'video', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/JoinUs-@RisqueMega-163.mp4' }, 'bot');
-      await showLoadingIndicator(1500);
-      addMessage({ type: 'image', url: 'https://imperiumfragrance.shop/wp-content/uploads/2025/06/salva-e.jpg' }, 'bot');
-      await showLoadingIndicator(1500);
-      addMessage({ type: 'text', text: "e se eu fizer um descontinho pra você bb, de 15 por 10 reais você aceita ??" }, 'bot');
+      addMessage({ type: 'text', text: "e se eu fizer por 10 reais pra vc os videos ?" }, 'bot');
       setFlowStep('awaiting_discount_offer_choice');
     }
   };
 
   const handleDiscountOfferChoice = async (choice: 'yes' | 'no') => {
-    setFlowStep('initial'); // Disable buttons
+    setFlowStep('initial');
     if (choice === 'yes') {
-      addMessage({ type: 'text', text: 'Sim' }, 'user');
+      addMessage({ type: 'text', text: 'pode ser' }, 'user');
       await showLoadingIndicator(1500);
-      await handleCreatePix(999);
+      await handleCreatePix(1000);
     } else {
-      addMessage({ type: 'text', text: 'Não' }, 'user');
+      addMessage({ type: 'text', text: 'não quero' }, 'user');
       await showLoadingIndicator(1500);
       addMessage({ type: 'text', text: "Tudo bem, amor. Deixa pra próxima então. Beijos! 😘" }, 'bot');
       setFlowStep('flow_ended');
@@ -239,58 +239,70 @@ export default function Home() {
     addMessage({ type: 'text', text: 'Quero' }, 'user');
     await showLoadingIndicator(1500);
     addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/k7z46bivb6f_1761506670522.jpg' }, 'bot');
+    
     await showLoadingIndicator(6500, "Gravando áudio...");
     await playAudioSequence(4, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/jctfc3a2pza_1761506844815.mp3', 3000);
+    
     await showLoadingIndicator(3000, "Gravando áudio...");
     await playAudioSequence(4.5, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/0c1gif2e8ss_1761506894706.mp3', 3000);
     
     await showLoadingIndicator(3000);
     addMessage({ type: 'video', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/ij3wa3d4m8f_1761507062595.mp4' }, 'bot');
 
-    await showLoadingIndicator(15000); // Wait for video to "play"
+    await showLoadingIndicator(10000); // Wait for video
     
-    // After the video, go directly to pix permission
     await showLoadingIndicator(3000, "Gravando áudio...");
-    await playAudioSequence(14, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-14.mp3', 3000);
-    await playAudioSequence(15, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-15.mp3', 3000);
-    await playAudioSequence(16, 'https://imperiumfragrance.shop/wp-content/uploads/2025/09/ElevenLabs_2025-09-19T18_39_42_Amanda-Kelly_pvc_sp100_s50_sb75_v3.mp3', 3000);
-    addMessage({ type: 'text', text: "posso te mandar meu pix amorzinho" }, 'bot');
+    await playAudioSequence(5, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/g188srlja0w_1761507756670.mp3', 3000);
+    
+    addMessage({ type: 'text', text: "eae bb sentiu tesão??" }, 'bot');
+    setFlowStep('awaiting_tesao_response');
+    setShowInput(true);
+  }
+
+  const handleVideoFeedback = async (feedback: 'good' | 'bad') => {
+      setFlowStep('initial');
+      addMessage({ type: 'text', text: feedback === 'good' ? 'Ficou uma delícia 🤤' : 'Ahhh mais ou menos 😅' }, 'user');
+
+      await showLoadingIndicator(3000, "Gravando áudio...");
+      await playAudioSequence(10, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/3furhsk20ct_1761510803757.mp3', 3000);
+      await playAudioSequence(11, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/dyrol02mcxb_1761510853350.mp3', 3000);
+
+      addMessage({ type: 'text', text: 'promete bb??' }, 'bot');
+      setFlowStep('awaiting_promise');
+  }
+
+  const handlePromise = async () => {
+    setFlowStep('initial');
+    addMessage({ type: 'text', text: 'sim, prometo' }, 'user');
+
+    await showLoadingIndicator(3000, "Gravando áudio...");
+    await playAudioSequence(12, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/02obruycp345_1761510950384.mp3', 3000);
+    await playAudioSequence(13, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/sbpxr0du11e_1761511027631.mp3', 3000);
+
+    addMessage({ type: 'text', text: 'posso te mandar o Pix?' }, 'bot');
     setFlowStep('awaiting_pix_permission_options');
   }
 
-  const formAction = async (formData: FormData, isAutomated = false) => {
+  const formAction = async (formData: FormData) => {
     const userMessageText = formData.get("message") as string;
-    if (!isAutomated && !userMessageText.trim()) return;
+    if (!userMessageText.trim()) return;
 
-    if (!isAutomated) {
-      addMessage({ type: 'text', text: userMessageText }, 'user');
-    }
-    
+    addMessage({ type: 'text', text: userMessageText }, 'user');
     setShowInput(false);
-    await showLoadingIndicator(3000);
-
-    let currentFlowStep = flowStep;
-    if (isAutomated) {
-        currentFlowStep = 'awaiting_photo_permission';
-    }
-
-
-    switch (currentFlowStep) {
-      case 'awaiting_photo_permission':
-        addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/070itnnjjht_1761506191081.jpg' }, 'bot');
-        await showLoadingIndicator(6500, "Gravando áudio...");
-        await playAudioSequence(3, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/9tuzx1irro_1761506386680.mp3', 3000);
-        addMessage({ type: 'text', text: "quer ver uma fotinha minha mais safada ??" }, 'bot');
-        setFlowStep('awaiting_sexy_photo_choice');
-        break;
-
-      case 'awaiting_call_permission':
-        await showLoadingIndicator(3000, "Gravando áudio...");
-        await playAudioSequence(14, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-14.mp3', 3000);
-        await playAudioSequence(15, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-15.mp3', 3000);
-        await playAudioSequence(16, 'https://imperiumfragrance.shop/wp-content/uploads/2025/09/ElevenLabs_2025-09-19T18_39_42_Amanda-Kelly_pvc_sp100_s50_sb75_v3.mp3', 3000);
-        addMessage({ type: 'text', text: "posso te mandar meu pix amorzinho" }, 'bot');
-        setFlowStep('awaiting_pix_permission_options');
+    
+    switch (flowStep) {
+      case 'awaiting_tesao_response':
+        await showLoadingIndicator(2000);
+        addMessage({ type: 'video', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/jlfrhn2kuzn_1761508285594.mp4'}, 'bot');
+        
+        await showLoadingIndicator(10000, "Gravando áudio...");
+        await playAudioSequence(6, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/omlkocn5fdq_1761507970995.mp3', 3000);
+        await playAudioSequence(7, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/m7mxonz7xyj_1761508998825.mp3', 3000);
+        await playAudioSequence(8, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/4rm1t5sc7kt_1761509067729.mp3', 3000);
+        await playAudioSequence(9, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/oy3f9objucc_1761510706822.mp3', 3000);
+        
+        addMessage({ type: 'text', text: 'o que achou do videozinho ?'}, 'bot');
+        setFlowStep('awaiting_video_feedback');
         break;
 
       case 'chat_mode':
@@ -302,6 +314,10 @@ export default function Home() {
           console.error(error);
           addMessage({ type: 'text', text: "Desculpe, ocorreu um erro ao processar sua mensagem." }, 'bot');
         }
+        setShowInput(true);
+        break;
+      
+      default:
         setShowInput(true);
         break;
     }
@@ -351,10 +367,10 @@ export default function Home() {
               </div>
               <Button
                   onClick={() => {
-                    if (flowStep === 'awaiting_pix_payment' && pixData) {
-                      handleCheckPayment(pixData.transactionId, 1498, false);
-                    } else if (flowStep === 'awaiting_upsell_pix_payment' && upsellPixData) {
-                       handleCheckPayment(upsellPixData.transactionId, 1501, true);
+                    const paymentValue = flowStep === 'awaiting_pix_payment' ? 1498 : flowStep === 'awaiting_upsell_pix_payment' ? 2000 : 1000;
+                    const tx = flowStep === 'awaiting_pix_payment' ? pixData : upsellPixData;
+                    if (tx) {
+                      handleCheckPayment(tx.transactionId, paymentValue, flowStep === 'awaiting_upsell_pix_payment');
                     }
                   }}
                   disabled={isCheckingPayment || (flowStep === 'awaiting_pix_payment' && !pixData) || (flowStep === 'awaiting_upsell_pix_payment' && !upsellPixData)}
@@ -375,10 +391,10 @@ export default function Home() {
           {flowStep === 'awaiting_pix_permission_options' && (
              <div className="p-4 bg-background border-t border-border/20 flex items-center justify-center gap-4">
                 <Button onClick={() => handlePixPermissionChoice('yes')} className="w-full bg-accent text-accent-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-accent/90">
-                    Sim
+                    Manda o Pix bb 💸
                 </Button>
                 <Button onClick={() => handlePixPermissionChoice('no')} className="w-full bg-destructive text-destructive-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-destructive/90">
-                    Não
+                    Não tô pronto ainda 😕
                 </Button>
             </div>
           )}
@@ -394,10 +410,29 @@ export default function Home() {
           {flowStep === 'awaiting_discount_offer_choice' && (
              <div className="p-4 bg-background border-t border-border/20 flex items-center justify-center gap-4">
                 <Button onClick={() => handleDiscountOfferChoice('yes')} className="w-full bg-accent text-accent-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-accent/90">
-                    Sim
+                    pode ser
                 </Button>
                 <Button onClick={() => handleDiscountOfferChoice('no')} className="w-full bg-destructive text-destructive-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-destructive/90">
-                    Não
+                    não quero
+                </Button>
+            </div>
+          )}
+          
+          {flowStep === 'awaiting_video_feedback' && (
+              <div className="p-4 bg-background border-t border-border/20 flex flex-col items-center justify-center gap-2">
+                <Button onClick={() => handleVideoFeedback('good')} className="w-full bg-primary text-primary-foreground font-semibold py-3 rounded-full shadow-md hover:bg-primary/90">
+                    Ficou uma delícia 🤤
+                </Button>
+                <Button onClick={() => handleVideoFeedback('bad')} className="w-full bg-white text-gray-800 font-semibold py-3 rounded-full shadow-md hover:bg-gray-200 border border-gray-300">
+                    Ahhh mais ou menos 😅
+                </Button>
+              </div>
+          )}
+          
+          {flowStep === 'awaiting_promise' && (
+             <div className="p-4 bg-background border-t border-border/20 flex items-center justify-center gap-4">
+                <Button onClick={handlePromise} className="w-full bg-accent text-accent-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-accent/90">
+                    sim, prometo
                 </Button>
             </div>
           )}
@@ -445,3 +480,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
