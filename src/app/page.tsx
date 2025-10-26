@@ -268,11 +268,21 @@ export default function Home() {
     await showLoadingIndicator(1500);
     addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/k7z46bivb6f_1761506670522.jpg' }, 'bot');
     await showLoadingIndicator(6500, "Gravando áudio...");
-    await playAudioSequence(4, 'https://imperiumfragrance.shop/wp-content/uploads/2025/08/AUDIO-4.mp3', 3000);
+    await playAudioSequence(4, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/jctfc3a2pza_1761506844815.mp3', 3000);
+    await showLoadingIndicator(3000, "Gravando áudio...");
+    await playAudioSequence(4.5, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/0c1gif2e8ss_1761506894706.mp3', 3000);
+    
     await showLoadingIndicator(3000);
-    addMessage({ type: 'text', text: "qual o seu nome safado ??? ❤" }, 'bot');
+    const { city } = await getCity();
+    if (city) {
+        addMessage({ type: 'text', text: `eu moro em ${city}, gostoso,` }, 'bot');
+    } else {
+        addMessage({ type: 'text', text: 'eu moro no Brasil, gostoso,' }, 'bot');
+    }
+    await showLoadingIndicator(3000);
+    addMessage({ type: 'text', text: "e você bb, de que cidade você é ?" }, 'bot');
     setShowInput(true);
-    setFlowStep('awaiting_name');
+    setFlowStep('awaiting_user_city');
   }
 
   const formAction = async (formData: FormData, isAutomated = false) => {
@@ -302,19 +312,8 @@ export default function Home() {
         break;
 
       case 'awaiting_name':
-        setUserName(userMessageText);
-        addMessage({ type: 'text', text: `${userMessageText}, nome de homem gostoso hehe 🔥😋` }, 'bot');
-        await showLoadingIndicator(3000);
-        const { city } = await getCity();
-        if (city) {
-            addMessage({ type: 'text', text: `eu moro em ${city}, gostoso,` }, 'bot');
-        } else {
-            addMessage({ type: 'text', text: 'eu moro no Brasil, gostoso,' }, 'bot');
-        }
-        await showLoadingIndicator(3000);
-        addMessage({ type: 'text', text: "e você bb, de que cidade você é ?" }, 'bot');
-        setShowInput(true);
-        setFlowStep('awaiting_user_city');
+        // This case is no longer triggered directly by user input after handleSexyPhotoChoice changes.
+        // It's kept here in case we need to reintroduce it. The logic will now be in awaiting_user_city
         break;
 
       case 'awaiting_user_city':
@@ -533,8 +532,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-    
-
-    
