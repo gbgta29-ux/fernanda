@@ -461,8 +461,8 @@ export default function Home() {
           {flowStep === 'flow_complete_video_only' && (
              <div className="p-4 bg-background border-t border-border/20 flex justify-center">
               <Button asChild className="w-full bg-accent text-accent-foreground font-bold text-lg py-6 rounded-full shadow-lg hover:bg-accent/90">
-                <Link href="https://tranquil-hummingbird-1d25e8.netlify.app/" target="_blank">
-                  Iniciar chamada de vídeo
+                <Link href="https://mega.nz/folder/NEJxzBDa#zkOaqGSj9u0mATNXkEH8JA/folder/4Fg2gQaC" target="_blank">
+                  Ver conteúdo
                 </Link>
               </Button>
             </div>
