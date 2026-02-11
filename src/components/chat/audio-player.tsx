@@ -23,7 +23,7 @@ export default function AudioPlayer({ src, autoplay = false, onEnded }: AudioPla
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [playbackRate, setPlaybackRate] = useState(1);
+  const [playbackRate, setPlaybackRate] = useState(1.2);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -60,6 +60,8 @@ export default function AudioPlayer({ src, autoplay = false, onEnded }: AudioPla
     if (audio.readyState > 0) {
       handleLoadedMetadata();
     }
+    
+    audio.playbackRate = playbackRate;
 
     return () => {
       audio.removeEventListener('play', handlePlay);
@@ -70,6 +72,12 @@ export default function AudioPlayer({ src, autoplay = false, onEnded }: AudioPla
     };
   }, [src, onEnded]);
   
+  useEffect(() => {
+    if (audioRef.current) {
+        audioRef.current.playbackRate = playbackRate;
+    }
+  }, [playbackRate]);
+
   useEffect(() => {
     const audio = audioRef.current;
     if (autoplay && audio) {
@@ -102,12 +110,9 @@ export default function AudioPlayer({ src, autoplay = false, onEnded }: AudioPla
   };
   
   const togglePlaybackRate = () => {
-    const rates = [1, 1.5, 2];
+    const rates = [1, 1.2, 1.5, 2];
     const currentIndex = rates.indexOf(playbackRate);
     const newRate = rates[(currentIndex + 1) % rates.length];
-    if(audioRef.current) {
-      audioRef.current.playbackRate = newRate;
-    }
     setPlaybackRate(newRate);
   }
 
