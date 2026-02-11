@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -178,7 +179,7 @@ export default function Home() {
       } else {
         await showLoadingIndicator(1500, "Gravando áudio...");
         await playAudioSequence(20, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/58z6uxxwgx_1761515866483.mp3');
-        addMessage({ type: 'text', text: "Amor, acabei de liberar meu número pessoal pra você... Quer pagar só mais R$ 5,00 pra gente conversar por lá? 😏" }, 'bot');
+        addMessage({ type: 'text', text: "Amor, acabei de liberar meu número pessoal pra você... Quer pagar só mais R$ 15,00 pra gente conversar por lá? 😏" }, 'bot');
         setFlowStep('payment_confirmed_awaiting_upsell_choice');
       }
     } else {
@@ -193,8 +194,8 @@ export default function Home() {
         addMessage({ type: 'text', text: 'Sim, eu quero!' }, 'user');
         setIsCreatingPix(true);
         await showLoadingIndicator(1500);
-        addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$5,00 pra você.' }, 'bot');
-        await handleCreatePix(500, true);
+        addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$15,00 pra você.' }, 'bot');
+        await handleCreatePix(1500, true);
         setIsCreatingPix(false);
 
     } else {
@@ -479,3 +480,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
