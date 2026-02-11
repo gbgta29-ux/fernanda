@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useRef, useEffect } from 'react';
@@ -110,7 +111,7 @@ export default function AudioPlayer({ src, autoplay = false, onEnded }: AudioPla
   };
   
   const togglePlaybackRate = () => {
-    const rates = [1, 1.2, 1.5, 2];
+    const rates = [1.2, 1.5, 2, 1];
     const currentIndex = rates.indexOf(playbackRate);
     const newRate = rates[(currentIndex + 1) % rates.length];
     setPlaybackRate(newRate);
@@ -146,3 +147,5 @@ export default function AudioPlayer({ src, autoplay = false, onEnded }: AudioPla
     </div>
   );
 }
+
+    
