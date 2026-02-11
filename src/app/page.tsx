@@ -331,7 +331,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-b from-red-900 via-red-800 to-black z-20 flex flex-col items-center justify-center gap-6 text-center p-4 animate-fadeIn">
               <div className="relative">
                 <Image
-                    src="https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/iv9za2zyprq_1761505835311.jpg"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV8VLsrH3aHE_53oxsj2iC9KgH2npKyxW1gw&s"
                     alt="Lari"
                     width={120}
                     height={120}

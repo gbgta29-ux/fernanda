@@ -10,7 +10,7 @@ export default function ChatHeader({}: ChatHeaderProps) {
         <ArrowLeft className="h-6 w-6" />
       </button>
       <Image
-        src="https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/iv9za2zyprq_1761505835311.jpg"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV8VLsrH3aHE_53oxsj2iC9KgH2npKyxW1gw&s"
         data-ai-hint="woman profile"
         alt="Lari"
         width={40}
