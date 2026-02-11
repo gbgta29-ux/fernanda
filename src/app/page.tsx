@@ -117,7 +117,7 @@ export default function Home() {
       addMessage({ type: 'text', text: "vou te enviar uma fotinha" }, 'bot');
       await showLoadingIndicator(1500);
       
-      addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/070itnnjjht_1761506191081.jpg' }, 'bot');
+      addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/rqeivdyfw2_1770842900996.jpg' }, 'bot');
       await showLoadingIndicator(6500, "Gravando áudio...");
       await playAudioSequence(3, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/9tuzx1irro_1761506386680.mp3', 3000);
       addMessage({ type: 'text', text: "quer ver uma fotinha minha mais safada ??" }, 'bot');
@@ -239,7 +239,7 @@ export default function Home() {
     setFlowStep('initial');
     addMessage({ type: 'text', text: 'Quero' }, 'user');
     await showLoadingIndicator(1500);
-    addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/k7z46bivb6f_1761506670522.jpg' }, 'bot');
+    addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/vkf6vuc43j9_1770842900350.jpg' }, 'bot');
     
     await showLoadingIndicator(6500, "Gravando áudio...");
     await playAudioSequence(4, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/jctfc3a2pza_1761506844815.mp3', 3000);
@@ -248,7 +248,7 @@ export default function Home() {
     await playAudioSequence(4.5, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/0c1gif2e8ss_1761506894706.mp3', 3000);
     
     await showLoadingIndicator(3000);
-    addMessage({ type: 'video', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/ij3wa3d4m8f_1761507062595.mp4' }, 'bot');
+    addMessage({ type: 'video', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/h7heyveuopm_1770842899682.mp4' }, 'bot');
 
     await showLoadingIndicator(10000); // Wait for video
     
@@ -294,7 +294,7 @@ export default function Home() {
     switch (flowStep) {
       case 'awaiting_tesao_response':
         await showLoadingIndicator(2000);
-        addMessage({ type: 'video', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/jlfrhn2kuzn_1761508285594.mp4'}, 'bot');
+        addMessage({ type: 'video', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/xbf1z3iza0p_1770842898461.mp4'}, 'bot');
         
         await showLoadingIndicator(10000, "Gravando áudio...");
         await playAudioSequence(6, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/omlkocn5fdq_1761507970995.mp3', 3000);
@@ -480,5 +480,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
