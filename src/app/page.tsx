@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -179,7 +178,7 @@ export default function Home() {
       } else {
         await showLoadingIndicator(1500, "Gravando áudio...");
         await playAudioSequence(20, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/58z6uxxwgx_1761515866483.mp3');
-        addMessage({ type: 'text', text: "Amor, acabei de liberar meu número pessoal pra você... Quer pagar só mais R$ 10,00 pra gente conversar por lá? 😏" }, 'bot');
+        addMessage({ type: 'text', text: "Amor, acabei de liberar meu número pessoal pra você... Quer pagar só mais R$ 5,00 pra gente conversar por lá? 😏" }, 'bot');
         setFlowStep('payment_confirmed_awaiting_upsell_choice');
       }
     } else {
@@ -194,8 +193,8 @@ export default function Home() {
         addMessage({ type: 'text', text: 'Sim, eu quero!' }, 'user');
         setIsCreatingPix(true);
         await showLoadingIndicator(1500);
-        addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$10,00 pra você.' }, 'bot');
-        await handleCreatePix(1000, true);
+        addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$5,00 pra você.' }, 'bot');
+        await handleCreatePix(500, true);
         setIsCreatingPix(false);
 
     } else {
@@ -215,7 +214,7 @@ export default function Home() {
     } else {
       addMessage({ type: 'text', text: 'Não tô pronto ainda 😕' }, 'user');
       await showLoadingIndicator(1500);
-      addMessage({ type: 'text', text: "Tudo bem, amor. Mas eu gostei tanto de você... Que tal de graça, só pra você provar? 😏" }, 'bot');
+      addMessage({ type: 'text', text: "Tudo bem, amor. Que tal um precinho especial só pra você? Faço por R$5,00 pra gente ter nossa chamada... O que me diz?" }, 'bot');
       setFlowStep('awaiting_discount_offer_choice');
     }
   };
@@ -225,8 +224,8 @@ export default function Home() {
     if (choice === 'yes') {
       addMessage({ type: 'text', text: 'pode ser' }, 'user');
       await showLoadingIndicator(1500);
-      addMessage({ type: 'text', text: 'Hehe, sabia que você ia aceitar! Aqui está o seu acesso. Vê se gosta e me fala depois. 😉' }, 'bot');
-      setFlowStep('flow_complete_video_only');
+      addMessage({ type: 'text', text: 'Oba! Sabia que você ia aceitar, amor. Vou gerar o PIX de R$5,00 pra você.' }, 'bot');
+      await handleCreatePix(500);
     } else {
       addMessage({ type: 'text', text: 'não quero' }, 'user');
       await showLoadingIndicator(1500);
@@ -480,11 +479,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
-
-    
-
-    
