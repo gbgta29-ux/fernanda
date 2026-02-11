@@ -117,7 +117,7 @@ export default function Home() {
       addMessage({ type: 'text', text: "vou te enviar uma fotinha" }, 'bot');
       await showLoadingIndicator(1500);
       
-      addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/rqeivdyfw2_1770842900996.jpg' }, 'bot');
+      addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/vkf6vuc43j9_1770842900350.jpg' }, 'bot');
       await showLoadingIndicator(6500, "Gravando áudio...");
       await playAudioSequence(3, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/9tuzx1irro_1761506386680.mp3', 3000);
       addMessage({ type: 'text', text: "quer ver uma fotinha minha mais safada ??" }, 'bot');
@@ -239,7 +239,7 @@ export default function Home() {
     setFlowStep('initial');
     addMessage({ type: 'text', text: 'Quero' }, 'user');
     await showLoadingIndicator(1500);
-    addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/vkf6vuc43j9_1770842900350.jpg' }, 'bot');
+    addMessage({ type: 'image', url: 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/6skv7fkm6d4_1770844274301.jpg' }, 'bot');
     
     await showLoadingIndicator(6500, "Gravando áudio...");
     await playAudioSequence(4, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/jctfc3a2pza_1761506844815.mp3', 3000);
@@ -480,6 +480,8 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
 
