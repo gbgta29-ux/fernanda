@@ -179,7 +179,7 @@ export default function Home() {
       } else {
         await showLoadingIndicator(1500, "Gravando áudio...");
         await playAudioSequence(20, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/58z6uxxwgx_1761515866483.mp3');
-        addMessage({ type: 'text', text: "Amor, acabei de liberar meu número pessoal pra você... Quer pagar só mais R$ 15,00 pra gente conversar por lá? 😏" }, 'bot');
+        addMessage({ type: 'text', text: "Amor, acabei de liberar meu número pessoal pra você... Quer pagar só mais R$ 10,00 pra gente conversar por lá? 😏" }, 'bot');
         setFlowStep('payment_confirmed_awaiting_upsell_choice');
       }
     } else {
@@ -194,8 +194,8 @@ export default function Home() {
         addMessage({ type: 'text', text: 'Sim, eu quero!' }, 'user');
         setIsCreatingPix(true);
         await showLoadingIndicator(1500);
-        addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$15,00 pra você.' }, 'bot');
-        await handleCreatePix(1500, true);
+        addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$10,00 pra você.' }, 'bot');
+        await handleCreatePix(1000, true);
         setIsCreatingPix(false);
 
     } else {
@@ -211,11 +211,11 @@ export default function Home() {
     if (choice === 'yes') {
       addMessage({ type: 'text', text: 'Manda o Pix bb 💸' }, 'user');
       await showLoadingIndicator(1500);
-      await handleCreatePix(997);
+      await handleCreatePix(497);
     } else {
       addMessage({ type: 'text', text: 'Não tô pronto ainda 😕' }, 'user');
       await showLoadingIndicator(1500);
-      addMessage({ type: 'text', text: "e se eu fizer por 5 reais pra vc os videos ?" }, 'bot');
+      addMessage({ type: 'text', text: "Tudo bem, amor. Mas eu gostei tanto de você... Que tal de graça, só pra você provar? 😏" }, 'bot');
       setFlowStep('awaiting_discount_offer_choice');
     }
   };
@@ -225,7 +225,8 @@ export default function Home() {
     if (choice === 'yes') {
       addMessage({ type: 'text', text: 'pode ser' }, 'user');
       await showLoadingIndicator(1500);
-      await handleCreatePix(500);
+      addMessage({ type: 'text', text: 'Hehe, sabia que você ia aceitar! Aqui está o seu acesso. Vê se gosta e me fala depois. 😉' }, 'bot');
+      setFlowStep('flow_complete_video_only');
     } else {
       addMessage({ type: 'text', text: 'não quero' }, 'user');
       await showLoadingIndicator(1500);
@@ -277,7 +278,7 @@ export default function Home() {
 
     await showLoadingIndicator(3000, "Gravando áudio...");
     await playAudioSequence(12, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/02obruycp345_1761510950384.mp3', 3000);
-    await playAudioSequence(13, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/sbpxr0du11e_1761511027631.mp3', 3000);
+    await playAudioSequence(13, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/v8hq5bxd7im_1770830835651.mp3', 3000);
 
     addMessage({ type: 'text', text: 'posso te mandar o Pix?' }, 'bot');
     setFlowStep('awaiting_pix_permission_options');
@@ -479,6 +480,8 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
 
