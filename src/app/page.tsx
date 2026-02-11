@@ -41,8 +41,8 @@ export default function Home() {
   const [flowStep, setFlowStep] = useState<FlowStep>('initial');
   const [isCreatingPix, setIsCreatingPix] = useState(false);
   const [isCheckingPayment, setIsCheckingPayment] = useState(false);
-  const [pixData, setPixData] = useState<PixChargeData | null>(null);
-  const [upsellPixData, setUpsellPixData] = useState<PixChargeData | null>(null);
+  const [pixData, setPixData] = useState<(PixChargeData & { value: number }) | null>(null);
+  const [upsellPixData, setUpsellPixData] = useState<(PixChargeData & { value: number }) | null>(null);
   const [isStarted, setIsStarted] = useState(false);
   const notificationSoundRef = useRef<HTMLAudioElement>(null);
   const { toast } = useToast();
@@ -141,11 +141,11 @@ export default function Home() {
     if (charge && charge.pixCopyPaste) {
       fpixelTrack('InitiateCheckout', { value: value / 100, currency: 'BRL' });
       if(isUpsell) {
-        setUpsellPixData(charge);
+        setUpsellPixData({ ...charge, value });
         addMessage({ type: 'pix', sender: 'bot', pixCopyPaste: charge.pixCopyPaste, value: value / 100 });
         setFlowStep('awaiting_upsell_pix_payment');
       } else {
-        setPixData(charge);
+        setPixData({ ...charge, value });
         setFlowStep('awaiting_pix_payment');
         addMessage({ type: 'text', text: `Prontinho amor, o valor é só R$${(value / 100).toFixed(2).replace('.', ',')}. Faz o pagamento pra gente gozar na chamada de vídeo...` }, 'bot');
         addMessage({ type: 'pix', sender: 'bot', pixCopyPaste: charge.pixCopyPaste, value: value / 100 });
@@ -179,7 +179,7 @@ export default function Home() {
       } else {
         await showLoadingIndicator(1500, "Gravando áudio...");
         await playAudioSequence(20, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/58z6uxxwgx_1761515866483.mp3');
-        addMessage({ type: 'text', text: "Amor, acabei de liberar meu número pessoal pra você... Quer pagar só mais R$ 20,00 pra gente conversar por lá? 😏" }, 'bot');
+        addMessage({ type: 'text', text: "Amor, acabei de liberar meu número pessoal pra você... Quer pagar só mais R$ 15,00 pra gente conversar por lá? 😏" }, 'bot');
         setFlowStep('payment_confirmed_awaiting_upsell_choice');
       }
     } else {
@@ -194,8 +194,8 @@ export default function Home() {
         addMessage({ type: 'text', text: 'Sim, eu quero!' }, 'user');
         setIsCreatingPix(true);
         await showLoadingIndicator(1500);
-        addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$20,00 pra você.' }, 'bot');
-        await handleCreatePix(2000, true);
+        addMessage({ type: 'text', text: 'Oba! Sabia que você ia querer, amor. Vou gerar o PIX de R$15,00 pra você.' }, 'bot');
+        await handleCreatePix(1500, true);
         setIsCreatingPix(false);
 
     } else {
@@ -211,11 +211,11 @@ export default function Home() {
     if (choice === 'yes') {
       addMessage({ type: 'text', text: 'Manda o Pix bb 💸' }, 'user');
       await showLoadingIndicator(1500);
-      await handleCreatePix(1498);
+      await handleCreatePix(997);
     } else {
       addMessage({ type: 'text', text: 'Não tô pronto ainda 😕' }, 'user');
       await showLoadingIndicator(1500);
-      addMessage({ type: 'text', text: "e se eu fizer por 10 reais pra vc os videos ?" }, 'bot');
+      addMessage({ type: 'text', text: "e se eu fizer por 5 reais pra vc os videos ?" }, 'bot');
       setFlowStep('awaiting_discount_offer_choice');
     }
   };
@@ -225,7 +225,7 @@ export default function Home() {
     if (choice === 'yes') {
       addMessage({ type: 'text', text: 'pode ser' }, 'user');
       await showLoadingIndicator(1500);
-      await handleCreatePix(1000);
+      await handleCreatePix(500);
     } else {
       addMessage({ type: 'text', text: 'não quero' }, 'user');
       await showLoadingIndicator(1500);
@@ -367,10 +367,9 @@ export default function Home() {
               </div>
               <Button
                   onClick={() => {
-                    const paymentValue = flowStep === 'awaiting_pix_payment' ? 1498 : flowStep === 'awaiting_upsell_pix_payment' ? 2000 : 1000;
                     const tx = flowStep === 'awaiting_pix_payment' ? pixData : upsellPixData;
                     if (tx) {
-                      handleCheckPayment(tx.transactionId, paymentValue, flowStep === 'awaiting_upsell_pix_payment');
+                      handleCheckPayment(tx.transactionId, tx.value, flowStep === 'awaiting_upsell_pix_payment');
                     }
                   }}
                   disabled={isCheckingPayment || (flowStep === 'awaiting_pix_payment' && !pixData) || (flowStep === 'awaiting_upsell_pix_payment' && !upsellPixData)}
@@ -480,6 +479,8 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
 
