@@ -183,7 +183,7 @@ export default function Home() {
         setFlowStep('payment_confirmed_awaiting_upsell_choice');
       }
     } else {
-      await playAudioSequence(19, 'https://imperiumfragrance.shop/wp-content/uploads/2025/07/ElevenLabs_2025-07-26T21_25_01_Keren-Young-Brazilian-Female_pvc_sp110_s30_sb30_v3-1.mp3');
+      await playAudioSequence(19, 'https://gvdtvgefzbxunjrtzrdw.supabase.co/storage/v1/object/public/media/lyqiltcv0va_1770953359847.mp3');
     }
     setIsCheckingPayment(false);
   };
@@ -480,3 +480,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
